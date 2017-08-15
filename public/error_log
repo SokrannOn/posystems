@@ -1,0 +1,25 @@
+[02-Aug-2017 14:56:34 Asia/Phnom_Penh] PHP Fatal error:  Class 'App\PurchaseOrder' not found in /home/abcpocamsofts/public_html/posystem/app/Http/Controllers/StockController.php on line 19
+[02-Aug-2017 14:57:18 Asia/Phnom_Penh] PHP Fatal error:  Class 'App\PurchaseOrder' not found in /home/abcpocamsofts/public_html/posystem/app/Http/Controllers/StockController.php on line 19
+[02-Aug-2017 14:58:57 Asia/Phnom_Penh] PHP Fatal error:  Class 'App\PurchaseOrder' not found in /home/abcpocamsofts/public_html/posystem/app/Http/Controllers/InvoicePOController.php on line 24
+[02-Aug-2017 15:02:15 Asia/Phnom_Penh] PHP Fatal error:  Class 'App\Setvalue' not found in /home/abcpocamsofts/public_html/posystem/app/Http/Controllers/PurchaseOrderController.php on line 52
+[02-Aug-2017 15:03:14 Asia/Phnom_Penh] PHP Fatal error:  Class 'App\setvalue' not found in /home/abcpocamsofts/public_html/posystem/app/Http/Controllers/PurchaseOrderController.php on line 52
+[02-Aug-2017 15:03:19 Asia/Phnom_Penh] PHP Fatal error:  Class 'App\setvalue' not found in /home/abcpocamsofts/public_html/posystem/app/Http/Controllers/PurchaseOrderController.php on line 52
+[02-Aug-2017 15:04:55 Asia/Phnom_Penh] PHP Fatal error:  Class 'App\Setvalue' not found in /home/abcpocamsofts/public_html/posystem/app/Http/Controllers/PurchaseOrderController.php on line 52
+[02-Aug-2017 15:05:05 Asia/Phnom_Penh] PHP Fatal error:  Class 'App\Setvalue' not found in /home/abcpocamsofts/public_html/posystem/app/Http/Controllers/PurchaseOrderController.php on line 52
+[02-Aug-2017 15:06:23 Asia/Phnom_Penh] PHP Fatal error:  Class 'App\Setvalue' not found in /home/abcpocamsofts/public_html/posystem/app/Http/Controllers/PurchaseOrderController.php on line 52
+[02-Aug-2017 15:06:27 Asia/Phnom_Penh] PHP Fatal error:  Class 'App\Setvalue' not found in /home/abcpocamsofts/public_html/posystem/app/Http/Controllers/PurchaseOrderController.php on line 52
+[02-Aug-2017 15:09:51 Asia/Phnom_Penh] PHP Fatal error:  Class 'App\setvalue' not found in /home/abcpocamsofts/public_html/posystem/app/Http/Controllers/PurchaseOrderSDController.php on line 35
+[02-Aug-2017 15:11:19 Asia/Phnom_Penh] PHP Fatal error:  Class 'App\Setvalue' not found in /home/abcpocamsofts/public_html/posystem/app/Http/Controllers/PurchaseOrderSDController.php on line 35
+[03-Aug-2017 15:49:27 Asia/Phnom_Penh] PHP Fatal error:  Class 'App\Setvalue' not found in /home/abcpocamsofts/public_html/posystem/app/Http/Controllers/InvoicePOController.php on line 96
+[03-Aug-2017 15:50:53 Asia/Phnom_Penh] PHP Fatal error:  Class 'App\Setvalue' not found in /home/abcpocamsofts/public_html/posystem/app/Http/Controllers/InvoicePOController.php on line 96
+[03-Aug-2017 16:39:03 Asia/Phnom_Penh] PHP Fatal error:  Call to undefined function ulr() in /home/abcpocamsofts/public_html/posystem/storage/framework/views/39b794ca09171a8d5dd873fc1054139c5de2222a.php on line 96
+[03-Aug-2017 16:39:27 Asia/Phnom_Penh] PHP Fatal error:  Call to undefined function ulr() in /home/abcpocamsofts/public_html/posystem/storage/framework/views/39b794ca09171a8d5dd873fc1054139c5de2222a.php on line 96
+[03-Aug-2017 16:40:30 Asia/Phnom_Penh] PHP Fatal error:  Call to undefined function ulr() in /home/abcpocamsofts/public_html/posystem/storage/framework/views/39b794ca09171a8d5dd873fc1054139c5de2222a.php on line 96
+[03-Aug-2017 16:41:17 Asia/Phnom_Penh] PHP Fatal error:  Call to undefined function ulr() in /home/abcpocamsofts/public_html/posystem/storage/framework/views/39b794ca09171a8d5dd873fc1054139c5de2222a.php on line 96
+[03-Aug-2017 16:44:45 Asia/Phnom_Penh] PHP Fatal error:  Call to undefined function ulr() in /home/abcpocamsofts/public_html/posystem/storage/framework/views/39b794ca09171a8d5dd873fc1054139c5de2222a.php on line 96
+[03-Aug-2017 16:45:21 Asia/Phnom_Penh] PHP Fatal error:  Call to undefined function ulr() in /home/abcpocamsofts/public_html/posystem/storage/framework/views/39b794ca09171a8d5dd873fc1054139c5de2222a.php on line 96
+[04-Aug-2017 08:10:47 Asia/Phnom_Penh] PHP Fatal error:  Class 'App\Invoice' not found in /home/abcpocamsofts/public_html/posystem/app/Http/Controllers/InvoiceController.php on line 48
+[04-Aug-2017 08:11:12 Asia/Phnom_Penh] PHP Fatal error:  Class 'App\Invoice' not found in /home/abcpocamsofts/public_html/posystem/app/Http/Controllers/InvoiceController.php on line 24
+[07-Aug-2017 11:22:30 Asia/Phnom_Penh] PHP Parse error:  syntax error, unexpected '$new' (T_VARIABLE) in /home/abcpocamsofts/public_html/posystem/storage/framework/views/6ae89561ea2222d33d4cd6c95de78b57f88ceed8.php on line 70
+[09-Aug-2017 11:02:27 Asia/Phnom_Penh] PHP Parse error:  syntax error, unexpected '=' in /home/abcpocamsofts/public_html/posystem/app/Http/Controllers/InvoicePOController.php on line 139
+[09-Aug-2017 15:14:06 Asia/Phnom_Penh] PHP Parse error:  syntax error, unexpected '}' in /home/abcpocamsofts/public_html/posystem/storage/framework/views/86a77fb0c42dcbe0ac11fda182c36f6559b30e9c.php on line 149
