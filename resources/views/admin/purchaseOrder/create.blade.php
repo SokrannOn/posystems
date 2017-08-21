@@ -1,290 +1,292 @@
 @extends('layouts.admin')
 @section('content')
-
-<div class="row">
-    <div class="col-lg-12">                
-        <h4 class="page-header"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Create New Purchase Order</h4>
-    </div>
-</div>
 <div>
-
   @include('nav.message')
 </div>
-<div id="mypopup"></div>
-    <div class="row">
-      <div class="col-lg-12">
-        {!!Form::open(['action'=>'PurchaseOrderController@store','method'=>'POST','id'=>'myFormPO'])!!}
-          {{csrf_field()}}
-              <div class="row">
-                  <div class="col-lg-2">
-                   <div class="form-group {{ $errors->has('poDate') ? ' has-error' : '' }}">
-                    {!!Form::label('poDate','PO Date :',[])!!}
-                    {!!Form::date('poDate',null,['class'=>'form-control'])!!}
-                    @if ($errors->has('poDate'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('poDate') }}</strong>
-                        </span>
-                    @endif
-                  </div>
-                </div>
-                  <div class="col-lg-7 hideChange">
-                   <div class="form-group {{ $errors->has('customer_id') ? ' has-error' : '' }}">
-                    {!!Form::label('customer_id','Customer Name :',[])!!}
-                    <div class="input-group">
-                    {!!Form::select('customer_id',[null=>'---Please select custome name---']+$customers,null,['class'=>'form-control customerid','required'=>'true','id'=>'customername'])!!}
-                    <span class="input-group-btn">
-                      <button title="Add New Usage"  type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal" onclick="getPopupCus()"><i class="fa fa-user-plus" aria-hidden="true"></i>Add</button>
-                    </span>
-                  </div>
-                    @if ($errors->has('customer_id'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('customer_id') }}</strong>
-                        </span>
-                    @endif
-                  </div>
-                </div>
-            </div>
-            <div hidden class="mydiv">
-              <div class="row">
-              <div class="col-lg-2">
-                   <div class="form-group {{ $errors->has('customerid') ? ' has-error' : '' }}">
-                    {!!Form::label('customerid','Customer ID :',[])!!}
-                    {!!Form::text('customerid',null,['class'=>'form-control cusId','readonly'=>'readonly','disabled'=>'true'])!!}
-                    @if ($errors->has('customerid'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('customerid') }}</strong>
-                        </span>
-                    @endif
-                  </div>
-                </div>
-                <div class="col-lg-3">
-                     <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
-                      {!!Form::label('name','Customer Name :',[])!!}
-                      {!!Form::text('name',null,['class'=>'form-control cusname','readonly'=>'readonly','disabled'=>'true'])!!}
-                      @if ($errors->has('name'))
-                          <span class="help-block">
-                              <strong>{{ $errors->first('name') }}</strong>
-                          </span>
-                      @endif
-                    </div>
-                  </div>
-                  <div class="col-lg-2">
-                     <div class="form-group {{ $errors->has('homeNo') ? ' has-error' : '' }}">
-                      {!!Form::label('homeNo','Home No :',[])!!}
-                      {!!Form::text('homeNo',null,['class'=>'form-control cusHomeNo','readonly'=>'readonly','disabled'=>'true'])!!}
-                      @if ($errors->has('homeNo'))
-                          <span class="help-block">
-                              <strong>{{ $errors->first('homeNo') }}</strong>
-                          </span>
-                      @endif
-                    </div>
-                  </div>
-                  <div class="col-lg-2">
-                     <div class="form-group {{ $errors->has('streetNo') ? ' has-error' : '' }}">
-                      {!!Form::label('streetNo','Street No :',[])!!}
-                      {!!Form::text('streetNo',null,['class'=>'form-control cusStreetNo','readonly'=>'readonly','disabled'=>'true'])!!}
-                      @if ($errors->has('streetNo'))
-                          <span class="help-block">
-                              <strong>{{ $errors->first('streetNo') }}</strong>
-                          </span>
-                      @endif
-                    </div>
-                  </div>
-                  <div class="col-lg-3">
-                     <div class="form-group {{ $errors->has('channel_id') ? ' has-error' : '' }}">
-                      {!!Form::label('channel_id','Channel :',[])!!}
-                      {!!Form::text('channel_id',null,['class'=>'form-control channel','readonly'=>'readonly','disabled'=>'true'])!!}
-                      @if ($errors->has('channel_id'))
-                          <span class="help-block">
-                              <strong>{{ $errors->first('channel_id') }}</strong>
-                          </span>
-                      @endif
-                    </div>
-                  </div>
-                </div>
-              <div class="panel panel-footer">
-                <div class="row">
-                  <div class="col-lg-4">
-                    <div class="form-group {{ $errors->has('product_id') ? ' has-error' : '' }}">
-                      {!!Form::label('product_id','Product Name',[])!!}
-                      {!!Form::select('product_id',[null=>'---Please select product---']+$product_name,null,['class'=>'form-control productId'])!!}
-                        @if ($errors->has('product_id'))
-                          <span class="help-block">
-                              <strong>{{ $errors->first('product_id') }}</strong>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="panel panel-default panel-success">
+      <div class="panel-heading"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Create New Purchase Order</div>
+        <div class="panel panel-body">
+            <div id="mypopup"></div>
+            <div class="row">
+              <div class="col-lg-12">
+                {!!Form::open(['action'=>'PurchaseOrderController@store','method'=>'POST','id'=>'myFormPO'])!!}
+                  {{csrf_field()}}
+                      <div class="row">
+                          <div class="col-lg-3">
+                           <div class="form-group {{ $errors->has('poDate') ? ' has-error' : '' }}">
+                            {!!Form::label('poDate','Purchase Order Date :',[])!!}
+                            {!!Form::date('poDate',null,['class'=>'form-control poDate'])!!}
+                            @if ($errors->has('poDate'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('poDate') }}</strong>
+                                </span>
+                            @endif
+                          </div>
+                        </div>
+                          <div class="col-lg-9 hideChange">
+                           <div class="form-group {{ $errors->has('customer_id') ? ' has-error' : '' }}">
+                            {!!Form::label('customer_id','Customer Name :',[])!!}
+                            <div class="input-group">
+                            {!!Form::select('customer_id',[null=>'---Please select custome name---']+$customers,null,['class'=>'form-control customerid','required'=>'true','id'=>'customername'])!!}
+                            <span class="input-group-btn">
+                              <button title="Add New Customer"  type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal" onclick="getPopupCus()"><i class="fa fa-user-plus" aria-hidden="true"></i> Add</button>
                             </span>
-                          @endif
+                          </div>
+                            @if ($errors->has('customer_id'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('customer_id') }}</strong>
+                                </span>
+                            @endif
+                          </div>
+                        </div>
                     </div>
-                  </div>
-                  <div class="col-lg-2">
-                    <div class="form-group {{ $errors->has('product_code') ? ' has-error' : '' }}">
-                        {!!Form::label('product_code','Product Code',[])!!}
-                        {!!Form::text('product_code',null,['class'=>'form-control proId','readonly'=>'readonly'])!!}
-                          @if ($errors->has('product_code'))
-                            <span class="help-block">
-                              <strong>{{ $errors->first('product_code') }}</strong>
-                            </span>
-                          @endif
+                    <div hidden class="mydiv">
+                      <div class="row">
+                      <div class="col-lg-2">
+                           <div class="form-group {{ $errors->has('customerid') ? ' has-error' : '' }}">
+                            {!!Form::label('customerid','Customer ID :',[])!!}
+                            {!!Form::text('customerid',null,['class'=>'form-control cusId','readonly'=>'readonly','disabled'=>'true'])!!}
+                            @if ($errors->has('customerid'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('customerid') }}</strong>
+                                </span>
+                            @endif
+                          </div>
+                        </div>
+                        <div class="col-lg-3">
+                             <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
+                              {!!Form::label('name','Customer Name :',[])!!}
+                              {!!Form::text('name',null,['class'=>'form-control cusname','readonly'=>'readonly','disabled'=>'true'])!!}
+                              @if ($errors->has('name'))
+                                  <span class="help-block">
+                                      <strong>{{ $errors->first('name') }}</strong>
+                                  </span>
+                              @endif
+                            </div>
+                          </div>
+                          <div class="col-lg-2">
+                             <div class="form-group {{ $errors->has('homeNo') ? ' has-error' : '' }}">
+                              {!!Form::label('homeNo','Home No :',[])!!}
+                              {!!Form::text('homeNo',null,['class'=>'form-control cusHomeNo','readonly'=>'readonly','disabled'=>'true'])!!}
+                              @if ($errors->has('homeNo'))
+                                  <span class="help-block">
+                                      <strong>{{ $errors->first('homeNo') }}</strong>
+                                  </span>
+                              @endif
+                            </div>
+                          </div>
+                          <div class="col-lg-2">
+                             <div class="form-group {{ $errors->has('streetNo') ? ' has-error' : '' }}">
+                              {!!Form::label('streetNo','Street No :',[])!!}
+                              {!!Form::text('streetNo',null,['class'=>'form-control cusStreetNo','readonly'=>'readonly','disabled'=>'true'])!!}
+                              @if ($errors->has('streetNo'))
+                                  <span class="help-block">
+                                      <strong>{{ $errors->first('streetNo') }}</strong>
+                                  </span>
+                              @endif
+                            </div>
+                          </div>
+                          <div class="col-lg-3">
+                             <div class="form-group {{ $errors->has('channel_id') ? ' has-error' : '' }}">
+                              {!!Form::label('channel_id','Channel :',[])!!}
+                              {!!Form::text('channel_id',null,['class'=>'form-control channel','readonly'=>'readonly','disabled'=>'true'])!!}
+                              @if ($errors->has('channel_id'))
+                                  <span class="help-block">
+                                      <strong>{{ $errors->first('channel_id') }}</strong>
+                                  </span>
+                              @endif
+                            </div>
+                          </div>
+                        </div>
+                      <div class="panel panel-footer panel-primary">
+                        <div class="row">
+                          <div class="col-lg-4">
+                            <div class="form-group {{ $errors->has('product_id') ? ' has-error' : '' }}">
+                              {!!Form::label('product_id','Product Name',[])!!}
+                              {!!Form::select('product_id',[null=>'---Please select product---']+$product_name,null,['class'=>'form-control productId'])!!}
+                                @if ($errors->has('product_id'))
+                                  <span class="help-block">
+                                      <strong>{{ $errors->first('product_id') }}</strong>
+                                    </span>
+                                  @endif
+                            </div>
+                          </div>
+                          <div class="col-lg-2">
+                            <div class="form-group {{ $errors->has('product_code') ? ' has-error' : '' }}">
+                                {!!Form::label('product_code','Product Code',[])!!}
+                                {!!Form::text('product_code',null,['class'=>'form-control proId','readonly'=>'readonly'])!!}
+                                  @if ($errors->has('product_code'))
+                                    <span class="help-block">
+                                      <strong>{{ $errors->first('product_code') }}</strong>
+                                    </span>
+                                  @endif
+                              </div>
+                          </div>  
+                          <div class="col-lg-2">
+                             <div class="form-group {{ $errors->has('qty') ? ' has-error' : '' }}">
+                                {!!Form::label('qty','Quality',[])!!}
+                                {!!Form::number('qty',null,['class'=>'form-control qty','readonly'=>'readonly','min'=>'0'])!!}
+                                  @if ($errors->has('qty'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('qty') }}</strong>
+                                      </span>
+                                  @endif
+                              </div>
+                          </div> 
+                          <div class="col-lg-2">
+                            <div class="form-group {{ $errors->has('unitPrice') ? ' has-error' : '' }}">
+                                {!!Form::label('unitPrice','Unit Price',[])!!}
+                                {!!Form::text('unitPrice',0,['class'=>'form-control price','readonly'=>'readonly'])!!}
+                                  @if ($errors->has('unitPrice'))
+                                    <span class="help-block">
+                                      <strong>{{ $errors->first('unitPrice') }}</strong>
+                                    </span>
+                                  @endif
+                            </div>
+                          </div> 
+                          <div class="col-lg-2">
+                            <div class="form-group {{ $errors->has('amount') ? ' has-error' : '' }}">
+                                {!!Form::label('amount','Amount',[])!!}
+                                {!!Form::text('amount',0,['class'=>'form-control amount','readonly'=>'readonly'])!!}
+                                  @if ($errors->has('amount'))
+                                    <span class="help-block">
+                                      <strong>{{ $errors->first('amount') }}</strong>
+                                    </span>
+                                  @endif
+                            </div>
+                          </div> 
+                        </div>
+                        <div class="row">
+                          <div class="col-lg-12">
+                             <a disabled class="btn btn-primary btn-sm add" onclick="addOrderCus()" ><i class="fa fa-cart-plus" aria-hidden="true"></i> Add</a>
+                             <button type="submit" name="btn_back" value="Back" class="btn btn-default btn-sm pull-right"> Back </button>
+                          </div>
+                        </div>
                       </div>
-                  </div>  
-                  <div class="col-lg-2">
-                     <div class="form-group {{ $errors->has('qty') ? ' has-error' : '' }}">
-                        {!!Form::label('qty','Quality',[])!!}
-                        {!!Form::number('qty',null,['class'=>'form-control qty','readonly'=>'readonly','min'=>'0'])!!}
-                          @if ($errors->has('qty'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('qty') }}</strong>
-                              </span>
-                          @endif
+                      
+                      {{----------------------------------------------}}
+                    <div class="row">
+                      <div hidden class="col-lg-3 columnhide">
+                           <div class="form-group {{ $errors->has('dueDate') ? ' has-error' : '' }}">
+                            {!!Form::label('dueDate','Due Date :',[])!!}
+                            {!!Form::date('dueDate',null,['class'=>'form-control'])!!}
+                            @if ($errors->has('dueDate'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('dueDate') }}</strong>
+                                </span>
+                            @endif
+                          </div>
+                        </div>
+                        <div hidden class="col-lg-8 columnhide">
+                         
+                        </div>
+                        <div hidden class="col-lg-1 showCheckbox">
+                           <div class="form-group {{ $errors->has('cod') ? ' has-error' : '' }}">
+                            {!!Form::label('cod','COD',[])!!}
+                            {!!Form::checkbox('cod',1,false,['class'=>'form-control cod'])!!}
+                            @if ($errors->has('cod'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('cod') }}</strong>
+                                </span>
+                            @endif
+                          </div>
+                        </div>
                       </div>
-                  </div> 
-                  <div class="col-lg-2">
-                    <div class="form-group {{ $errors->has('unitPrice') ? ' has-error' : '' }}">
-                        {!!Form::label('unitPrice','Unit Price',[])!!}
-                        {!!Form::text('unitPrice',0,['class'=>'form-control price','readonly'=>'readonly'])!!}
-                          @if ($errors->has('unitPrice'))
-                            <span class="help-block">
-                              <strong>{{ $errors->first('unitPrice') }}</strong>
-                            </span>
-                          @endif
-                    </div>
-                  </div> 
-                  <div class="col-lg-2">
-                    <div class="form-group {{ $errors->has('amount') ? ' has-error' : '' }}">
-                        {!!Form::label('amount','Amount',[])!!}
-                        {!!Form::text('amount',0,['class'=>'form-control amount','readonly'=>'readonly'])!!}
-                          @if ($errors->has('amount'))
-                            <span class="help-block">
-                              <strong>{{ $errors->first('amount') }}</strong>
-                            </span>
-                          @endif
-                    </div>
-                  </div> 
-                </div>
+                      {{----------------------------------------------}}
                 <div class="row">
                   <div class="col-lg-12">
-                     <a class="btn btn-primary" onclick="addOrderCus()" ><i class="fa fa-cart-plus" aria-hidden="true"></i> Add</a>
-                     <button type="submit" name="btn_back" value="Back" class="btn btn-default pull-right"> Back </button>
+                    <div class="panel panel-default table-responsive" id="MyProList">
+                   <!--  table -->
+                    </div>
+                  </div>
+                </div>
+              <div id="showto" hidden>
+                <div class="row">
+                  <dir class="col-lg-8">
+                    
+                  </dir>
+                  <div class="col-md-2">
+                    {!!Form::label('total','Total :',[])!!}
+                  </div>
+                  <div class="col-lg-2">
+                    {!!Form::number('total',0,['class'=>'form-control totalcus','readonly'=>'readonly'])!!}
+                  </div>
+                </div>
+                <div class="row" id="cod" hidden>
+                  <dir class="col-lg-8">
+                    
+                  </dir>
+                  <div class="col-lg-2">
+                    {!!Form::label('cod','COD% :',[])!!}
+                  </div>
+                  <div class="col-lg-2">
+                   
+                  </div>
+                </div>
+                <div class="row" id="vat" hidden>
+                  <dir class="col-lg-8">
+                    
+                  </dir>
+                  <div class="col-lg-2">
+                    {!!Form::label('vat','VAT% :',[])!!}
+                  </div>
+                  <div class="col-lg-2">
+                    {!!Form::number('vat',0,['class'=>'form-control vat','readonly'=>'readonly'])!!}
+                  </div>
+                </div>
+                <div class="row" id="discount" hidden>
+                  <dir class="col-lg-8">
+                    
+                  </dir>
+                  <div class="col-lg-2">
+                    {!!Form::label('discount','Discount% :',[])!!}
+                  </div>
+                  <div class="col-lg-2">
+                    {!!Form::number('discount',null,['class'=>'form-control discountcus','min'=>'0','max'=>'100'])!!}
+                  </div>
+                </div>
+                <div class="row">
+                  <dir class="col-lg-8">
+                    
+                  </dir>
+                  <div class="col-lg-2">
+                    {!!Form::label('grandTotal','Grand Total :',[])!!}
+                  </div>
+                  <div class="col-lg-2">
+                      {!!Form::text('grandTotal',0,['class'=>'form-control grandTotalcus','readonly'=>'readonly'])!!}
+                  </div>
+                </div>
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="well-sm">
+                        <button type="submit" disabled="true" name="btn_save" value="Save" class="btn btn-success btn-sm" id="btn_hide"> Save</button>
+                        <button disabled="true" type="submit" name="btn_cancel" value="Cancel" class="btn btn-danger btn-sm btn_hide"> Cancel </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-              
-              {{----------------------------------------------}}
-            <div class="row">
-              <div hidden class="col-lg-3 columnhide">
-                   <div class="form-group {{ $errors->has('dueDate') ? ' has-error' : '' }}">
-                    {!!Form::label('dueDate','Due Date :',[])!!}
-                    {!!Form::date('dueDate',null,['class'=>'form-control'])!!}
-                    @if ($errors->has('dueDate'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('dueDate') }}</strong>
-                        </span>
-                    @endif
-                  </div>
-                </div>
-                <div hidden class="col-lg-8 columnhide">
-                 
-                </div>
-                <div hidden class="col-lg-1 showCheckbox">
-                   <div class="form-group {{ $errors->has('cod') ? ' has-error' : '' }}">
-                    {!!Form::label('cod','COD',[])!!}
-                    {!!Form::checkbox('cod',1,false,['class'=>'form-control cod'])!!}
-                    @if ($errors->has('cod'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('cod') }}</strong>
-                        </span>
-                    @endif
-                  </div>
-                </div>
-              </div>
-              {{----------------------------------------------}}
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="panel panel-default table-responsive" id="MyProList">
-           <!--  table -->
-            </div>
-          </div>
-        </div>
-      <div id="showto" hidden>
-        <div class="row">
-          <dir class="col-lg-8">
-            
-          </dir>
-          <div class="col-md-2">
-            {!!Form::label('total','Total :',[])!!}
-          </div>
-          <div class="col-lg-2">
-            {!!Form::number('total',0,['class'=>'form-control totalcus','readonly'=>'readonly'])!!}
-          </div>
-        </div>
-        <div class="row" id="cod" hidden>
-          <dir class="col-lg-8">
-            
-          </dir>
-          <div class="col-lg-2">
-            {!!Form::label('cod','COD% :',[])!!}
-          </div>
-          <div class="col-lg-2">
-           
-          </div>
-        </div>
-        <div class="row" id="vat" hidden>
-          <dir class="col-lg-8">
-            
-          </dir>
-          <div class="col-lg-2">
-            {!!Form::label('vat','VAT% :',[])!!}
-          </div>
-          <div class="col-lg-2">
-            {!!Form::number('vat',0,['class'=>'form-control vat','readonly'=>'readonly'])!!}
-          </div>
-        </div>
-        <div class="row" id="discount" hidden>
-          <dir class="col-lg-8">
-            
-          </dir>
-          <div class="col-lg-2">
-            {!!Form::label('discount','Discount% :',[])!!}
-          </div>
-          <div class="col-lg-2">
-            {!!Form::number('discount',null,['class'=>'form-control discountcus','min'=>'0'])!!}
-          </div>
-        </div>
-        <div class="row">
-          <dir class="col-lg-8">
-            
-          </dir>
-          <div class="col-lg-2">
-            {!!Form::label('grandTotal','Grand Total :',[])!!}
-          </div>
-          <div class="col-lg-2">
-              {!!Form::text('grandTotal',0,['class'=>'form-control grandTotalcus','readonly'=>'readonly'])!!}
-          </div>
-        </div>
-          <div class="row">
-            <div class="col-lg-12">
-              <div class="well well-sm">
-                <button type="submit" disabled="true" name="btn_save" value="Save" class="btn btn-success" id="btn_hide"> Save</button>
-                <button disabled="true" type="submit" name="btn_cancel" value="Cancel" class="btn btn-primary pull-right btn_hide"> Cancel </button>
+                
+                    
+                        {!!Form::hidden('codcus',$codcus,['id'=>'codcus'])!!}
+                        <!-- {!!Form::hidden('discus1',$discus1,['id'=>'discus1'])!!}
+                        {!!Form::hidden('discus2',$discus2,['id'=>'discus2'])!!} -->
+                        {!!Form::hidden('setdiscus1',$setdiscus1,['id'=>'setdiscus1'])!!}
+                       <!--  {!!Form::hidden('setdiscus2',$setdiscus2,['id'=>'setdiscus2'])!!} -->
+                       {!!Form::hidden('vat',$vat,['id'=>'vat'])!!}
+                        {!!Form::hidden('discount',null,['id'=>'dis'])!!}
+                        {!!Form::hidden('grandTotal',null,['id'=>'gtotal'])!!}
+                    
+                {!!Form::close()!!}
               </div>
             </div>
           </div>
         </div>
-      </div>
-        
-              <div hidden>
-                {!!Form::text('codcus',$codcus,['id'=>'codcus'])!!}
-                <!-- {!!Form::text('discus1',$discus1,['id'=>'discus1'])!!}
-                {!!Form::text('discus2',$discus2,['id'=>'discus2'])!!} -->
-                {!!Form::text('setdiscus1',$setdiscus1,['id'=>'setdiscus1'])!!}
-               <!--  {!!Form::text('setdiscus2',$setdiscus2,['id'=>'setdiscus2'])!!} -->
-               {!!Form::text('vat',$vat,['id'=>'vat'])!!}
-                {!!Form::text('discount',null,['id'=>'dis'])!!}
-                {!!Form::text('grandTotal',null,['id'=>'gtotal'])!!}
-              </div>
-        {!!Form::close()!!}
-      </div>
     </div>
   </div>
+</div>
 @stop
 @section('script')
 <script type="text/javascript">
@@ -324,12 +326,12 @@ $(document).ready(function() {
   });
   $('.productId').on('change',function(e){
       var proId= $(this).val();
-      $('.proId').val(proId);
       $('.qty').removeAttr('readonly','readonly');
       $('.qty').val('');
       $('.qty').focus();
       $('.amount').val(0);
       if(proId==''){
+        $('.add').attr('disabled','true');
         $('.qty').attr('readonly','readonly');
         $('.proId').val(null);
         $('.price').val(0);
@@ -343,8 +345,8 @@ $(document).ready(function() {
     type: 'GET',
     url:"{{url('/getProduct')}}"+"/"+id,
     success:function(response){
-        $('.proId').val(response[0].product_code);
-        $('.price').val(response[0].unitPrice);
+      $('.proId').val(response.pro_code);
+      $('.price').val(response.price); 
       },
       error:function(error){
         console.log(error);
@@ -353,7 +355,17 @@ $(document).ready(function() {
 }
 //----------------------------------
  $( ".qty" ).keyup(function() {
-    var qty = $('.qty').val();
+   var qty = $('.qty').val();
+    if (qty>=0) {
+      $('.add').removeAttr('disabled','true');
+      $('.qty').css('border','1px solid lightblue');
+    }else if(qty==null){
+      $('.add').attr('disabled','true');
+    }else{
+      $('.add').attr('disabled','true');
+      $('.qty').css('border','1px solid red');
+      alert('Quality must be greater than or equal to 0.')
+    }
     var price = $('.price').val();
     var total = qty * price;
     var amount = total.toFixed(2);
@@ -472,6 +484,7 @@ function getEmailCustomer(id){
     type:'get',
     dataType: 'json',
     success:function(data){
+      $('.add').attr('disabled','true');
       $('#showto').fadeIn();
       $(".productId").val('');
       $('.proId').val(null);
@@ -518,24 +531,36 @@ $.ajax({
   totalcus = data;
   total = data.toFixed(2);
   $('.totalcus').val(total);
-  $('#showto').fadeIn();
-  $('.columnhide').fadeIn();
-  $('.showCheckbox').fadeIn();
-  $('#MyProList').fadeIn();
+  $('#showto').fadeIn(1000);
+  $('.columnhide').fadeIn(1000);
+  $('.showCheckbox').fadeIn(1000);
+  $('#MyProList').fadeIn(1000);
   var setdiscus1 = $('#setdiscus1').val();
   if(totalcus >= setdiscus1){
-          $('#discount').fadeIn(100);
+          $('#discount').fadeIn(1000);
           $('.discountcus').val(0);
           $('.grandTotalcus').val(total);
           $( ".discountcus" ).keyup(function() {
             $('.cod').filter(':checkbox').removeAttr('checked');
             var dis = $(this).val();
+            if(dis<0){
+                $('.discountcus').css('border','1px solid red');
+                $('#btn_hide').attr('disabled','true');
+                alert('Discount must be greater than or equal to 0.');
+            }else if(dis>100){
+                $('.discountcus').css('border','1px solid red');
+                $('#btn_hide').attr('disabled','true');
+                alert('Discount must be less than or equal to 100.');
+            }else{
+                $('#btn_hide').removeAttr('disabled','true');
+                 $('.discountcus').css('border','1px solid lightblue');
+            }
             graTotalcus = totalcus - (totalcus * dis)/100;
             grandTotalcus = graTotalcus.toFixed(2);
           $('.grandTotalcus').val(grandTotalcus);
           });          
   }else{
-      $('#discount').hide(100);
+      $('#discount').fadeOut(1000);
       $('.grandTotalcus').val(total);
   }
   $("#myFormPO").submit(function(){

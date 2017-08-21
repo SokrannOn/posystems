@@ -4,6 +4,8 @@ use App\Usage;
 use App\Product;
 use App\TpmPurchaseOrder;
 use App\Purchaseorder;
+use App\Pricelist;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +47,8 @@ Route::group(['prefix' => 'admin','middleware'=>'auth'], function () {
 	Route::resource('invoices','InvoiceController');
 	Route::resource('usages','UsageController');
 	Route::resource('purchaseOrders','PurchaseOrderController');
+	Route::resource('suppliers','SupplierController');
+	Route::resource('pricelists','PriceListController');
 	Route::resource('purchaseOrdersSD','PurchaseOrderSDController');
 	Route::resource('invoicePO','InvoicePOController');
 	Route::resource('summaryInv','CraditPOController');
@@ -73,10 +77,17 @@ Route::get('/removeOrderSD/{id}',function($id){
         return response()->json($id);
 });
 Route::get('/getProduct/{id}',function($id){
-	 	$products = Product::select('product_code','unitPrice')->where('id','=', $id)->get();
-	 	 //dump($products);
-        //return response()->json($products);
-        return $products;
+		$product_code = Product::where('id','=', $id)->value('product_code');
+	 	$products = Product::findOrFail($id);
+	 	foreach ($products->pricelists as $product) {
+	 		$pricelist_id = $product->id;
+	 		$sql = "SELECT sellingprice FROM pricelists WHERE id={$pricelist_id} AND now()>=startdate AND now()<=enddate";
+		 	$result = DB::select($sql);
+		 	foreach ($result as $row) {
+		 		$price = $row->sellingprice;
+		 	}
+	 	}
+	 	return response()->json(['pro_code'=>$product_code,'price'=>$price]);
 	});
 
 Route::get('/getProvince/{id}',function($id){

@@ -54,7 +54,7 @@ class ProductController extends Controller
             $product->name = Input::get("name");     
             $product->description = Input::get("description");
             $product->category_id = Input::get("category_id"); 
-            $product->unitPrice = Input::get("unitPrice");    
+            $product->qty = 0;   
             $product->user_id = Auth::user()->id;
             $product->save();
             return redirect()->route('products.index')->with('message','This new product has been created successfully!');
@@ -106,7 +106,6 @@ class ProductController extends Controller
             $product->name = Input::get("name");     
             $product->description = Input::get("description");
             $product->category_id = Input::get("category_id"); 
-            $product->unitPrice = Input::get("unitPrice");    
             $product->user_id = Auth::user()->id;
             $product->save();
             return redirect()->route('products.index')->with('message','This district has been updated successfully!');

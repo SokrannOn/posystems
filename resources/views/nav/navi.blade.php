@@ -79,6 +79,28 @@
                                         </li>
                                     </ul>
                                 </li>
+                                <li>
+                                    <a href="javascript:;" data-toggle="collapse" data-target="#Supp"><i class="fa fa-building-o" aria-hidden="true"></i> Suppliers <i class="fa fa-fw fa-caret-down"></i></a>
+                                    <ul id="Supp" class="collapse nav nav-second-level">
+                                        <li>
+                                            <a href="{{ route('suppliers.index')}}">All Suppliers</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('suppliers.create')}}">Create New Suppliers</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="javascript:;" data-toggle="collapse" data-target="#pricelist"><i class="fa fa-money" aria-hidden="true"></i> Price List <i class="fa fa-fw fa-caret-down"></i></a>
+                                    <ul id="pricelist" class="collapse nav nav-second-level">
+                                        <li>
+                                            <a href="{{ route('pricelists.index')}}">All Price List</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('pricelists.create')}}">Create New Price List</a>
+                                        </li>
+                                    </ul>
+                                </li>
                               </li>
                             </ul>
                         </li>
@@ -212,7 +234,7 @@
                                 <li>
                                     <a href="javascript:;" data-toggle="collapse" data-target="#stock"><i class="fa fa-files-o" aria-hidden="true"></i> All Invoices <i class="fa fa-fw fa-caret-down"></i></a>
                                     <ul id="stock" class="collapse nav nav-second-level">
-                                    <li>
+                                        <li>
                                             <a href="{{ route('stocks.index')}}">Update Delivery</a>
                                         </li>
                                     </ul>

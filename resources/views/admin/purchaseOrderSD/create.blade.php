@@ -1,23 +1,19 @@
 @extends('layouts.admin')
 @section('content')
-
-<div class="row">
-    <div class="col-lg-12">                
-        <h4 class="page-header"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Create New Order</h4>
-    </div>
-</div>
 <div>
-
   @include('nav.message')
 </div>
     <div class="row">
       <div class="col-lg-12">
-        {!!Form::open(['action'=>'PurchaseOrderSDController@store','method'=>'POST','id'=>'myFormPO'])!!}
+        <div class="panel panel-default panel-success">
+          <div class="panel-heading"><i class="fa fa-shopping-basket" aria-hidden="true"></i> Create New Purchase Order</div>
+          <div class="panel panel-body">
+            {!!Form::open(['action'=>'PurchaseOrderSDController@store','method'=>'POST','id'=>'myFormPO'])!!}
           {{csrf_field()}}
             <div class="row">
-               <div class="col-lg-2">
+               <div class="col-lg-3">
                   <div class="form-group {{ $errors->has('poDate') ? ' has-error' : '' }}">
-                    {!!Form::label('poDate','PO Date :',[])!!}
+                    {!!Form::label('poDate','Purchase Order Date :',[])!!}
                     {!!Form::date('poDate',null,['class'=>'form-control'])!!}
                     @if ($errors->has('poDate'))
                         <span class="help-block">
@@ -36,7 +32,7 @@
               </div>
             </div>
             {{--------------------------------}}
-            <div class="panel panel-footer">
+            <div class="panel panel-footer panel-primary">
                 <div class="row">
                   <div class="col-lg-4">
                     <div class="form-group {{ $errors->has('product_id') ? ' has-error' : '' }}">
@@ -96,8 +92,8 @@
                 </div>
                 <div class="row">
                   <div class="col-lg-12">
-                    <a class="btn btn-primary" onclick="addOderSD()" ><i class="fa fa-cart-plus" aria-hidden="true"></i> Add</a>
-                     <button type="submit" name="btn_back" value="Back" class="btn btn-default pull-right"> Back </button>
+                    <a disabled class="btn btn-primary btn-sm add" onclick="addOderSD()" ><i class="fa fa-cart-plus" aria-hidden="true"></i> Add</a>
+                     <button type="submit" name="btn_back" value="Back" class="btn btn-default pull-right btn-sm"> Back </button>
                   </div>
                 </div>
               </div>
@@ -168,9 +164,9 @@
         </div>
           <div class="row">
             <div class="col-lg-12">
-              <div class="well well-sm">
-                <button type="submit" disabled="true" name="btn_save" value="Save" class="btn btn-success" id="btn_hide"><i class="icon-save"></i> Save </button>
-                <button disabled="true" type="submit" name="btn_cancel" value="Cancel" class="btn btn-primary pull-right btn_hide"> Cancel </button>
+              <div class="well-sm">
+                <button type="submit" disabled="true" name="btn_save" value="Save" class="btn btn-success btn-sm" id="btn_hide"><i class="icon-save"></i> Save </button>
+                <button disabled="true" type="submit" name="btn_cancel" value="Cancel" class="btn btn-danger btn-sm btn_hide"> Cancel </button>
               </div>
             </div>
           </div>
@@ -179,21 +175,21 @@
         {!!Form::hidden('discount',null,['id'=>'dis'])!!}
         {!!Form::hidden('grandTotal',null,['id'=>'gtotal'])!!}
         {!!Form::close()!!}
+          </div>
+        </div>
     </div>
   </div>
 @stop
 @section('script')
 <script type="text/javascript">
   $('.productId').on('change',function(e){
-  	
       var proId= $(this).val();
-      //alert(proId);
-      $('.proId').val(proId);
       $('.qty').removeAttr('readonly','readonly');
       $('.qty').val('');
       $('.qty').focus();
       $('.amount').val(0);
       if(proId==''){
+        $('.add').attr('disabled','true');
         $('.qty').val('');
         $('.qty').attr('readonly','readonly');
         $('.proId').val(null);
@@ -207,8 +203,8 @@
     type: 'GET',
     url:"{{url('/getProduct')}}"+"/"+id,
     success:function(response){
-        $('.proId').val(response[0].product_code);
-        $('.price').val(response[0].unitPrice);
+      $('.proId').val(response.pro_code);
+      $('.price').val(response.price); 
       },
       error:function(error){
         console.log(error);
@@ -225,6 +221,7 @@ function addOderSD(){
     type:'get',
     url:"{{url('/addOrderSD')}}"+"/"+proid+"/"+qty+"/"+price+"/"+amount,
     success:function(data){
+       $('.add').attr('disabled','true');
       $(".productId").val('');
       $('.proId').val(null);
       $('.qty').val(null)
@@ -233,7 +230,7 @@ function addOderSD(){
       $(".amount").val(0);
       $('#btn_hide').removeAttr('disabled','true');
       $('.btn_hide').removeAttr('disabled','true');
-      $('.cod').show(100);
+      $('.cod').fadeIn('slow');
       showProductSD()
       getTotalSD();
     },
@@ -254,12 +251,12 @@ $.ajax({
   totalsd = data;
   var total = data.toFixed(2);
   $('.totalsd').val(total);
-  $('#showto').show();
+  $('#showto').fadeIn('slow');
   var setdissd1 = $('#setdissd1').val();
   var setdissd2 = $('#setdissd2').val();
   var codsd = $('#codsd').val();
   if(totalsd < setdissd1){
-    $('#discountsd').hide();
+    $('#discountsd').fadeOut('slow');
     var codsd = $('#codsd').val();
     $('.codsd').val(codsd);
     vat = $('#vatsd').val();
@@ -276,7 +273,7 @@ $.ajax({
   }
   else if(totalsd >= setdissd2){
     var dissd2 = $('#dissd2').val();
-    $('#discountsd').show();
+    $('#discountsd').fadeIn('slow');
     $('.discountsd').val(dissd2);
     var codsd = $('#codsd').val();
     $('.codsd').val(codsd);
@@ -294,7 +291,7 @@ $.ajax({
     $('.grandTotalsd').val(grandTotalsd);
   }else{
     var dissd1 = $('#dissd1').val();
-    $('#discountsd').show();
+    $('#discountsd').fadeIn('slow');
     $('.discountsd').val(dissd1);
     var codsd = $('#codsd').val();
     $('.codsd').val(codsd);
@@ -320,10 +317,9 @@ $.ajax({
 
   $(".discount").keyup(function(e){
       var total = 0;
-     var dis = 0;
+      var dis = 0;
   total = $('#total').val();
   dis = $(this).val();
-  console.log([total,dis])
   var grandTotal = total - (total * dis)/100;
   $('.grandTotal').val(grandTotal);
   console.log(grandTotal);
@@ -379,18 +375,28 @@ $.ajax({
  //--------------------------------------------------------------
  $( ".qty" ).keyup(function() {
     var qty = $('.qty').val();
+    if (qty>=0) {
+      $('.add').removeAttr('disabled','true');
+      $('.qty').css('border','1px solid lightblue');
+    }else if(qty==null){
+      $('.add').attr('disabled','true');
+    }else{
+      $('.add').attr('disabled','true');
+      $('.qty').css('border','1px solid red');
+      alert('Quality must be greater than or equal to 0.');
+    }
     var price = $('.price').val();
     var total = qty * price;
     var amount = total.toFixed(2);
     $('.amount').val(amount);
 });
  //-----------------------------------
-$('.discount').on('change',function(e){
-        var dis = $(this).val();
-        var total = $('.total').val();
-        var grandTotal = total - (total * dis)/100;
-        $('.grandTotal').val(grandTotal);
-  });
+// $('.discount').on('change',function(e){
+//         var dis = $(this).val();
+//         var total = $('.total').val();
+//         var grandTotal = total - (total * dis)/100;
+//         $('.grandTotal').val(grandTotal);
+//   });
 
 </script>
 @stop

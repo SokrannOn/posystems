@@ -63,7 +63,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-12">
                            <div class="form-group {{ $errors->has('category_id') ? ' has-error' : '' }}">
                             {!!Form::label('category_id','Category Name :',[])!!}
                             {!!Form::select('category_id',[null=>'---Please select a category name---']+$categories,null,['class'=>'form-control','required'=>'true'])!!}
@@ -73,17 +73,6 @@
                                 </span>
                             @endif
                           </div>
-                        </div>
-                        <div class="col-lg-6">
-                           <div class="form-group {{ $errors->has('unitPrice') ? ' has-error' : '' }}">
-                                {!!Form::label('unitPrice',' Unit Price : ',[])!!}
-                                {!!Form::text('unitPrice',null,['class'=>'form-control','required'=>'true','placeholder'=> 'unit price...'])!!}
-                                @if ($errors->has('unitPrice'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('unitPrice') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
                         </div>
                     </div>
                 <div class="modal-footer" style="background-color: #117A65;">
@@ -126,7 +115,7 @@
                 <th>Product Barcode</th>
                 <th>Product Name</th>
                 <th>Category Name</th>
-                <th>Price</th>
+                <th>Quantity</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -149,7 +138,7 @@
                 </td>
                 <td style="font-size: 12px; font-weight: bold; font-family: 'Khmer OS System';">
                     <?php 
-                        echo "$ " . number_format($product->unitPrice,2);
+                        echo number_format($product->qty,0);
                     ?>
                 </td>
                 <td>

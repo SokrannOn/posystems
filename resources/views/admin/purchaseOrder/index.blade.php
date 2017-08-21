@@ -49,6 +49,11 @@
                 </td>
                 <td>
                     <a href="{{ route('purchaseOrders.show',$pocus->id)}}" class="btn btn-info btn-xs" title="Show Details"><i class="fa fa-indent" aria-hidden="true"></i></a>
+                    <form action="{{ route('purchaseOrders.edit',$pocus->id) }}" method="POST" style="display: inline;" onsubmit="{ return true } else {return false };">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <button title="Edit PO" type="submit" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></button>
+                    </form>
                 </td>
             </tr>
             @endforeach
