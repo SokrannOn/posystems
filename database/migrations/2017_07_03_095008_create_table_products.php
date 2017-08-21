@@ -19,7 +19,7 @@ class CreateTableProducts extends Migration
             $table->string('product_barcode');
             $table->string('name');
             $table->string('description')->nullable();
-            $table->double('unitPrice');
+            $table->integer('qty');
             $table->integer('category_id');
             $table->integer('user_id');
             $table->timestamps();
