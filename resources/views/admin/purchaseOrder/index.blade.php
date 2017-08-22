@@ -15,8 +15,8 @@
             <div class="panel-heading">
            All Purchase Orders
         </div>
-        <div class="panel-body">
-       <table with="100%" id="example" class="table table-striped table-bordered table-hover">
+        <div class="panel-body table-responsive">
+       <table with="100%" id="example" class="table table-striped table-responsive table-bordered table-hover">
         <thead>
             <tr>
                 <th>PO Number</th>
@@ -30,30 +30,26 @@
         <tbody>
             @foreach($pocuss as $pocus)
             <tr>
-                <td style="font-size: 11px; font-family: 'Khmer OS System';">
+                <td style="font-size: 11px; font-family: 'Khmer OS System'; text-align: center;">
                     {{$pocus->id}}
                 </td>
-                <td style="font-size: 11px; font-family: 'Khmer OS System';">
+                <td style="font-size: 11px; font-family: 'Khmer OS System'; text-align: center;">
                     {{Carbon\Carbon::parse($pocus->poDate)->format('d-M-Y')}}
                 </td>
-                <td style="font-size: 11px; font-family: 'Khmer OS System';"> 
+                <td style="font-size: 11px; font-family: 'Khmer OS System'; text-align: center;"> 
                     <?php 
                         echo "$ " . number_format($pocus->totalAmount,2);
                     ?>
                 </td>
-                <td style="font-size: 11px; font-family: 'Khmer OS System';"> 
+                <td style="font-size: 11px; font-family: 'Khmer OS System'; text-align: center;"> 
                     {{$pocus->discount . " %"}}
                 </td>
                 <td style="font-size: 11px; font-family: 'Khmer OS System';">
                     {{$pocus->customer->name}}
                 </td>
-                <td>
+                <td style="text-align: center;">
                     <a href="{{ route('purchaseOrders.show',$pocus->id)}}" class="btn btn-info btn-xs" title="Show Details"><i class="fa fa-indent" aria-hidden="true"></i></a>
-                    <form action="{{ route('purchaseOrders.edit',$pocus->id) }}" method="POST" style="display: inline;" onsubmit="{ return true } else {return false };">
-                        <input type="hidden" name="_method" value="DELETE">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <button title="Edit PO" type="submit" class="btn btn-warning btn-xs"><i class="fa fa-edit"></i></button>
-                    </form>
+                    <a href="{{ route('purchaseOrders.edit',$pocus->id)}}" class="btn btn-warning btn-xs" title="Show Details"><i class="fa fa-edit"></i></a>                
                 </td>
             </tr>
             @endforeach

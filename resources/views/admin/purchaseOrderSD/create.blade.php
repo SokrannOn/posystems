@@ -58,7 +58,7 @@
                   </div>  
                   <div class="col-lg-2">
                      <div class="form-group {{ $errors->has('qty') ? ' has-error' : '' }}">
-                        {!!Form::label('qty','Quality',[])!!}
+                        {!!Form::label('qty','Quantity',[])!!}
                         {!!Form::number('qty',null,['class'=>'form-control qty','readonly'=>'readonly','min'=>'0'])!!}
                           @if ($errors->has('qty'))
                             <span class="help-block">
@@ -383,7 +383,6 @@ $.ajax({
     }else{
       $('.add').attr('disabled','true');
       $('.qty').css('border','1px solid red');
-      alert('Quality must be greater than or equal to 0.');
     }
     var price = $('.price').val();
     var total = qty * price;

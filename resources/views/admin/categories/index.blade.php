@@ -16,7 +16,7 @@
                         <div class="col-lg-12">
                            <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
                                 {!!Form::label('name','Category Name : ',[])!!}
-                                {!!Form::text('name',null,['class'=>'form-control','required'=>'true','placeholder'=> 'Please provide category name...'])!!}
+                                {!!Form::text('name',null,['class'=>'form-control','required'=>'true'])!!}
                                 @if ($errors->has('name'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('name') }}</strong>
@@ -29,7 +29,7 @@
                         <div class="col-lg-12">
                            <div class="form-group {{ $errors->has('description') ? ' has-error' : '' }}">
                                 {!!Form::label('description',' Description : ',[])!!}
-                                {!!Form::text('description',null,['class'=>'form-control','placeholder'=> 'Please provide description...'])!!}
+                                {!!Form::text('description',null,['class'=>'form-control'])!!}
                                 @if ($errors->has('description'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('description') }}</strong>
@@ -59,7 +59,7 @@
 </div>
 <div class="row">
     <div class="col-lg-12">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><i class="fa fa-plus" aria-hidden="true"></i> Add New</button>
+        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><i class="fa fa-plus" aria-hidden="true"></i> Add New</button>
     </div>
 </div>
 <div class="row">
@@ -82,13 +82,13 @@
         <tbody>
             @foreach($categories as $category)
             <tr>
-                <td>{{$no++}}</td>
+                <td style="font-size: 11px; font-family: 'Khmer OS System'; text-align: center;">{{$no++}}</td>
                 <td style="font-size: 11px; font-family: 'Khmer OS System';">
                     {{$category->name}}</td>
                 <td style="font-size: 11px; font-family: 'Khmer OS System';">
                   {{$category->description}}
                 </td>
-                <td>
+                <td style="text-align: center;">
                     <a href="{{ route('categories.edit',$category->id)}}" class="btn btn-warning btn-xs" title="Edit"><i class="fa fa-edit"></i></a>
                     <form action="{{ route('categories.destroy', $category->id) }}" method="POST" style="display: inline;" onsubmit="if(confirm('Are you sure you want to delete?')) { return true } else {return false };">
                                 <input type="hidden" name="_method" value="DELETE">

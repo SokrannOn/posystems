@@ -11,7 +11,7 @@
 </div>
 <div class="row">
     <div class="col-lg-12">
-        <button title="Add New"  type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><i class="fa fa-plus" aria-hidden="true"></i> Add New</button>
+        <button title="Add New"  type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><i class="fa fa-plus" aria-hidden="true"></i> Add New</button>
     </div>
 </div>
 <div class="row">
@@ -37,14 +37,14 @@
         <tbody>
             @foreach($customer as $customer)
             <tr>
-                <td>{{$no++}}</td>
+                <td style="font-size: 11px; font-family: 'Khmer OS System'; text-align: center;">{{$no++}}</td>
                 <td style="font-size: 11px; font-family: 'Khmer OS System';"> 
                     {{$customer->name}}
                 </td>
                 <td style="font-size: 11px; font-family: 'Khmer OS System';">
                     {{$customer->contactNo}}
                 </td>
-                <td style="font-size: 11px; font-family: 'Khmer OS System';">  
+                <td style="font-size: 11px; font-family: 'Khmer OS System'; text-align: center;">  
                     {{$customer->channel->name}}
                 </td>
                 <td style="font-size: 11px; font-family: 'Khmer OS System';">
@@ -56,7 +56,7 @@
                     $customer->village->commune->district->name . ", " . 
                     $customer->village->commune->district->province->name . "." . " ( " . $customer->location . " )"}}
                 </td>
-                <td>
+                <td style="text-align: center;">
                     <a href="{{ route('customers.edit',$customer->id)}}" class="btn btn-warning btn-xs" title="Edit"><i class="fa fa-edit"></i></a>
                     @if(Auth::user()->position->name != 'Sale')
                     <form action="{{ route('customers.destroy', $customer->id) }}" method="POST" style="display: inline;" onsubmit="if(confirm('Are you sure you want to delete?')) { return true } else {return false };">

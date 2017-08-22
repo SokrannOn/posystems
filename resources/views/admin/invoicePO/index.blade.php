@@ -49,35 +49,35 @@
         <tbody>
             @foreach($pos as $details)
             <tr>
-                <td style="font-size: 11px; font-family: 'Khmer OS System';">
+                <td style="font-size: 11px; font-family: 'Khmer OS System'; text-align: center;">
                     <?php 
                         echo "CAM-IN-" . sprintf('%06d',$details->id);
                     ?>
                 </td>
-                <td style="font-size: 11px; font-family: 'Khmer OS System';">
+                <td style="font-size: 11px; font-family: 'Khmer OS System'; text-align: center;">
                     {{Carbon\Carbon::parse($details->invoiceDate)->format('d-M-Y')}}
                 </td>
-                 <td style="font-size: 11px; font-family: 'Khmer OS System';">
+                 <td style="font-size: 11px; font-family: 'Khmer OS System'; text-align: center;">
                     <?php 
                         echo "$ " . number_format($details->totalAmount,2);
                     ?>
                 </td>
-                <td style="font-size: 11px; font-family: 'Khmer OS System';">
+                <td style="font-size: 11px; font-family: 'Khmer OS System'; text-align: center;">
                     {{$details->discount . " %"}}
                 </td>
                     <?php 
                         if($details->customer_id==null){
-                            echo "<td style='font-size: 11px; font-family: Khmer OS System;'>" . $details->user->nameDisplay . "</td>";
-                            echo "<td style='font-size: 11px; font-family: Khmer OS System;'>" . $details->customer->channel->name . "</td>";
-                            echo "<td style='font-size: 11px; font-family: Khmer OS System;'> SD </td>";
+                            echo "<td style='font-size: 11px; font-family: Khmer OS System; '>" . $details->user->nameDisplay . "</td>";
+                            echo "<td style='font-size: 11px; font-family: Khmer OS System; text-align: center;'>" . $details->customer->channel->name . "</td>";
+                            echo "<td style='font-size: 11px; font-family: Khmer OS System; '> SD </td>";
                         }else
                         {
                             echo "<td style='font-size: 11px; font-family: Khmer OS System;'>" . $details->customer->name . "</td>";
-                            echo "<td style='font-size: 11px; font-family: Khmer OS System;'>" . $details->customer->channel->name . "</td>";
-                            echo "<td style='font-size: 11px; font-family: Khmer OS System;'>" . $details->user->nameDisplay . "</td>";
+                            echo "<td style='font-size: 11px; font-family: Khmer OS System; text-align: center;'>" . $details->customer->channel->name . "</td>";
+                            echo "<td style='font-size: 11px; font-family: Khmer OS System; '>" . $details->user->nameDisplay . "</td>";
                         }
                     ?>
-                <td>
+                <td style="text-align: center;">
                     <a href="{{ route('invoicePO.show',$details->id)}}" class="btn btn-info btn-xs" title="Show Details"><i class="fa fa-indent" aria-hidden="true"></i></a>
                     <form action="{{ route('invoicePO.destroy',$details->id) }}" method="POST" style="display: inline;" onsubmit="{ return true } else {return false };">
                         <input type="hidden" name="_method" value="DELETE">
@@ -132,15 +132,15 @@
         <tbody>
             @foreach($paids as $paid)
             <tr>
-                <td style="font-size: 11px; font-family: 'Khmer OS System';">
+                <td style="font-size: 11px; font-family: 'Khmer OS System';text-align: center;">
                     <?php 
                         echo "CAM-IN-" . sprintf('%06d',$paid->id);
                     ?>
                 </td>
-                <td style="font-size: 11px; font-family: 'Khmer OS System';">
+                <td style="font-size: 11px; font-family: 'Khmer OS System'; text-align: center;">
                     {{Carbon\Carbon::parse($paid->invoiceDate)->format('d-M-Y')}}
                 </td>
-                <td style="font-size: 11px; font-family: 'Khmer OS System';">
+                <td style="font-size: 11px; font-family: 'Khmer OS System'; text-align: center;">
                 @if($paid->paidDate!=null)
                     {{Carbon\Carbon::parse($paid->paidDate)->format('d-M-Y')}}
                 @endif
@@ -148,27 +148,27 @@
                 	
                 @endif
                 </td>
-                <td style="font-size: 11px; font-family: 'Khmer OS System';">
+                <td style="font-size: 11px; font-family: 'Khmer OS System'; text-align: center;">
                     <?php 
                         echo "$ " . number_format($paid->totalAmount,2);
                     ?>
                 </td>
-                <td style="font-size: 11px; font-family: 'Khmer OS System';">
+                <td style="font-size: 11px; font-family: 'Khmer OS System'; text-align: center;">
                     {{$paid->discount . " %"}}
                 </td>
                 <?php 
                     if($paid->customer_id==null){
                         echo "<td style='font-size: 11px; font-family: Khmer OS System;'>" . $paid->user->nameDisplay . "</td>";
-                        echo "<td style='font-size: 11px; font-family: Khmer OS System;'>" . $paid->customer->channel->name . "</td>";
+                        echo "<td style='font-size: 11px; font-family: Khmer OS System;' text-align: center;>" . $paid->customer->channel->name . "</td>";
                         echo "<td style='font-size: 11px; font-family: Khmer OS System;'> SD </td>";
                     }else
                     {
                         echo "<td style='font-size: 11px; font-family: Khmer OS System;'>" . $paid->customer->name . "</td>";
-                        echo "<td style='font-size: 11px; font-family: Khmer OS System;'>" . $paid->customer->channel->name . "</td>";
+                        echo "<td style='font-size: 11px; font-family: Khmer OS System;text-align: center;'>" . $paid->customer->channel->name . "</td>";
                         echo "<td style='font-size: 11px; font-family: Khmer OS System;'>" . $paid->user->nameDisplay . "</td>";
                     }
                 ?>
-                <td>
+                <td style="text-align: center;">
                     <a href="{{ route('invoicePO.show',$paid->id)}}" class="btn btn-info btn-xs" title="Show Details"><i class="fa fa-indent" aria-hidden="true"></i></a>
                     <form action="{{ route('invoicePO.destroy',$paid->id) }}" method="POST" style="display: inline;" onsubmit="{ return true } else {return false };">
                         <input type="hidden" name="_method" value="DELETE">
@@ -225,34 +225,34 @@
         <tbody>
             @foreach($cradits as $cradit)
             <tr>
-                 <td style="font-size: 11px; font-family: 'Khmer OS System';">
+                 <td style="font-size: 11px; font-family: 'Khmer OS System';text-align: center;">
                     <?php 
                         echo "CAM-IN-" . sprintf('%06d',$cradit->id);
                     ?>
                 </td>
-                <td style="font-size: 11px; font-family: 'Khmer OS System';">
+                <td style="font-size: 11px; font-family: 'Khmer OS System'; text-align: center;">
                     {{Carbon\Carbon::parse($cradit->invoiceDate)->format('d-M-Y')}}
                 </td>
-                <td style="font-size: 11px; font-family: 'Khmer OS System';">
+                <td style="font-size: 11px; font-family: 'Khmer OS System'; text-align: center;">
                     <?php 
                         echo "$ " . number_format($cradit->totalAmount,2);
                     ?>
                 </td>
-                <td style="font-size: 11px; font-family: 'Khmer OS System';">
+                <td style="font-size: 11px; font-family: 'Khmer OS System'; text-align: center;">
                     {{$cradit->discount . " %"}}</td>
                 <?php 
                         if($cradit->customer_id==null){
                             echo "<td style='font-size: 11px; font-family: Khmer OS System;'>" . $cradit->user->nameDisplay . "</td>";
-                            echo "<td style='font-size: 11px; font-family: Khmer OS System;'>" . $cradit->customer->channel->name . "</td>";
+                            echo "<td style='font-size: 11px; font-family: Khmer OS System;text-align: center;'>" . $cradit->customer->channel->name . "</td>";
                             echo "<td style='font-size: 11px; font-family: Khmer OS System;'> SD </td>";
                         }else
                         {
                             echo "<td style='font-size: 11px; font-family: Khmer OS System;'>" . $cradit->customer->name . "</td>";
-                            echo "<td style='font-size: 11px; font-family: Khmer OS System;'>" . $cradit->customer->channel->name . "</td>";
+                            echo "<td style='font-size: 11px; font-family: Khmer OS System text-align: center;'>" . $cradit->customer->channel->name . "</td>";
                             echo "<td style='font-size: 11px; font-family: Khmer OS System;'>" . $cradit->user->nameDisplay . "</td>";
                         }
                     ?>
-                <td>
+                <td style="text-align: center;">
                     <a href="{{ url('admin/details',$cradit->id)}}" class="btn btn-info btn-xs" title="Show Details"><i class="fa fa-indent" aria-hidden="true"></i></a>
                 </td>
             </tr>
