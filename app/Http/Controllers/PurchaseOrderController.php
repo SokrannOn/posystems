@@ -14,6 +14,7 @@ use App\Commune;
 use App\Village;
 use App\SetValue;
 use App\TpmPurchaseOrder;
+use App\TpmEditPurchaseOrder;
 use Illuminate\Support\Facades\Input;
 use Carbon\Carbon;
 use Auth;
@@ -149,7 +150,9 @@ class PurchaseOrderController extends Controller
      */
     public function edit($id)
     {
-        
+        $pos = Purchaseorder::findOrFail($id);
+        $products = Product::pluck('name','id')->all();
+         return view('admin.purchaseOrder.edit',compact('pos','products'));
     }
 
     /**

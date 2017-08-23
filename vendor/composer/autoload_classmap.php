@@ -97,6 +97,7 @@ return array(
     'CreateTableSetValues' => $baseDir . '/database/migrations/2017_07_05_161738_create_table_setValues.php',
     'CreateTableSummaryInvoice' => $baseDir . '/database/migrations/2017_07_19_155747_create_table_summaryInvoice.php',
     'CreateTableSuppliers' => $baseDir . '/database/migrations/2017_08_16_105628_create_table_suppliers.php',
+    'CreateTableTmpEditPurchaseorder' => $baseDir . '/database/migrations/2017_08_21_145404_create_table_tmp_edit_purchaseorder.php',
     'CreateTableTmpPurchaseorder' => $baseDir . '/database/migrations/2017_07_06_104331_create_table_tmp_purchaseorder.php',
     'CreateTableVillages' => $baseDir . '/database/migrations/2017_06_05_032530_create_table_villages.php',
     'CreateTableZones' => $baseDir . '/database/migrations/2017_07_13_091147_create_table_zones.php',

@@ -62,7 +62,6 @@
                 <th>No</th>
                 <th>Invoice Number</th>
                 <th>Invoice Date</th>
-                <th>Customer Name</th>
                 <th>Total ( $ )</th>
                 <th>Total ( ៛ )</th>
             </tr>
@@ -78,7 +77,6 @@
                     ?>
                 </td>
                 <td>{{$detail->poDate}}</td>
-                <td>{{$detail->customer->name}}</td>
                 <td>
                     <?php 
                          $totalAmount = $detail->totalAmount;

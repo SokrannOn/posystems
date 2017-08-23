@@ -17,7 +17,7 @@
 <body>
     <div class="row" style="width: 950px; margin: auto;">
         <div>
-            <a href="{{ route('invoicePO.index')}}" class="btn btn-info btn-sm" > Back </a>
+            <a href="{{ route('summaryInvs.index')}}" class="btn btn-info btn-sm" > Back </a>
             <button class="btn btn-primary btn-sm" style="float: right;" name="print" id="print" value=" Print "><span class="glyphicon glyphicon-print"></span> Print</button>
         </div>
     </div>

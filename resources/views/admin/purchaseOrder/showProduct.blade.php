@@ -4,34 +4,35 @@
                       <tr>
                           <th>No</th>
                           <th>Product Name</th>
-                          <th>Qty</th>
+                          <th>Quantity</th>
                           <th>UnitPrice</th>
                           <th>Amount</th>
-                          <th>action</th>
+                          <th>Actions</th>
                       </tr>
                   </thead>
                   <?php $no=1;?>
                   <tbody>
                       @foreach($tmpdata as $tmppo)
                       <tr id="{{$tmppo->id}}">
-                          <td>{{$no++}}</td>
+                          <td style="font-size: 11px; font-family: 'Khmer OS System'; text-align: center;">{{$no++}}</td>
                           <td style="font-size: 11px; font-family: 'Khmer OS System';">
                             {{$tmppo->product->name}}
                           </td>
-                          <td style="font-size: 11px; font-family: 'Khmer OS System';">
+                          <td style="font-size: 11px; font-family: 'Khmer OS System'; text-align: center;">
                             {{$tmppo->qty}}
                           </td>
-                          <td style="font-size: 11px; font-family: 'Khmer OS System';">
+                          <td style="font-size: 11px; font-family: 'Khmer OS System'; text-align: center;">
                             <?php 
                                 echo "$ " . number_format($tmppo->unitPrice,2);
                             ?>
                           </td>
-                          <td width="150px" style="font-size: 11px; font-family: 'Khmer OS System';">
+                          <td width="150px" style="font-size: 11px; font-family: 'Khmer OS System'; text-align: center;">
                             <?php 
                                 echo "$ " . number_format($tmppo->amount,2);
                             ?>
                           </td>
-                          <td width="150px"><button class="btn btn-danger fa fa-remove btn-xs poid" type="button" onclick="removeOrderCus({{$tmppo->id}})"></button></td>
+                          <td width="150px" style="text-align: center;">
+                          <button class="btn btn-danger fa fa-remove btn-xs poid" type="button" onclick="removeOrderCus({{$tmppo->id}})"> Remove</button></td>
                       </tr>
                       @endforeach
                       

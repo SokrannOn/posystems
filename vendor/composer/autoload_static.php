@@ -390,6 +390,7 @@ class ComposerStaticInitd14e7eab6983a8c5a9d3af22411b5535
         'CreateTableSetValues' => __DIR__ . '/../..' . '/database/migrations/2017_07_05_161738_create_table_setValues.php',
         'CreateTableSummaryInvoice' => __DIR__ . '/../..' . '/database/migrations/2017_07_19_155747_create_table_summaryInvoice.php',
         'CreateTableSuppliers' => __DIR__ . '/../..' . '/database/migrations/2017_08_16_105628_create_table_suppliers.php',
+        'CreateTableTmpEditPurchaseorder' => __DIR__ . '/../..' . '/database/migrations/2017_08_21_145404_create_table_tmp_edit_purchaseorder.php',
         'CreateTableTmpPurchaseorder' => __DIR__ . '/../..' . '/database/migrations/2017_07_06_104331_create_table_tmp_purchaseorder.php',
         'CreateTableVillages' => __DIR__ . '/../..' . '/database/migrations/2017_06_05_032530_create_table_villages.php',
         'CreateTableZones' => __DIR__ . '/../..' . '/database/migrations/2017_07_13_091147_create_table_zones.php',

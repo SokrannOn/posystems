@@ -11,7 +11,7 @@
 </div>
 <div class="row">
     <div class="col-lg-12">
-        <div class="panel panel-default">
+        <div class="panel panel-default table-responsive">
             <div class="panel-heading">
            All Set Values
         </div>
@@ -31,17 +31,19 @@
         <tbody>
             @foreach($setvalues as $setvalues)
             <tr>
-                <td>{{$no++}}</td>
+                <td style="font-size: 11px; font-family: 'Khmer OS System'; text-align: center;">
+                    {{$no++}}
+                </td>
                 <td style="font-size: 11px; font-family: 'Khmer OS System';">
                     {{$setvalues->name}}
                 </td>
-                <td style="font-size: 11px; font-family: 'Khmer OS System';">
+                <td style="font-size: 11px; font-family: 'Khmer OS System'; text-align: center;">
                     {{$setvalues->value}}
                 </td>
                 <td style="font-size: 11px; font-family: 'Khmer OS System';">
                     {{$setvalues->description}}
                 </td>
-                <td style="font-size: 11px; font-family: 'Khmer OS System';"><?php
+                <td style="font-size: 11px; font-family: 'Khmer OS System'; text-align: center;"><?php
                         if($setvalues->status==1){
                             echo "<div style='color:green'>Activated</div>";
                         }else{
@@ -49,7 +51,7 @@
                         }
                     ?>    
                 </td>
-                <td>
+                <td style="text-align: center;">
                     <a href="{{ route('setValues.edit',$setvalues->id)}}" class="btn btn-warning btn-xs" title="Edit"><i class="fa fa-edit"></i></a>
                     <form action="{{ route('setValues.destroy', $setvalues->id) }}" method="POST" style="display: inline;">
                                 <input type="hidden" name="_method" value="DELETE">
