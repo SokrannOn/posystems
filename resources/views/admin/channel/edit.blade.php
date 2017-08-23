@@ -18,7 +18,7 @@
               <div class="col-lg-6">
                    <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
                         {!!Form::label('name','Channel Name : ',[])!!}
-                        {!!Form::text('name',null,['class'=>'form-control','required'=>'true','placeholder'=> 'Please provide channel name...'])!!}
+                        {!!Form::text('name',null,['class'=>'form-control','required'=>'true'])!!}
                         @if ($errors->has('name'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('name') }}</strong>
@@ -31,7 +31,7 @@
               <div class="col-lg-6">
                    <div class="form-group {{ $errors->has('description') ? ' has-error' : '' }}">
                         {!!Form::label('description','Description : ',[])!!}
-                        {!!Form::text('description',null,['class'=>'form-control','placeholder'=> 'Please provide description...'])!!}
+                        {!!Form::text('description',null,['class'=>'form-control'])!!}
                         @if ($errors->has('description'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('description') }}</strong>

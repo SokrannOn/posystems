@@ -16,7 +16,7 @@
                         <div class="col-lg-12">
                            <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
                                 {!!Form::label('name','Province Name : ',[])!!}
-                                {!!Form::text('name',null,['class'=>'form-control','required'=>'true','placeholder'=> 'Please provide province name...'])!!}
+                                {!!Form::text('name',null,['class'=>'form-control','required'=>'true'])!!}
                                 @if ($errors->has('name'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('name') }}</strong>
@@ -46,7 +46,7 @@
 </div>
 <div class="row">
     <div class="col-lg-12">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"> <i class="fa fa-plus" aria-hidden="true"></i> Add New</button>
+        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"> <i class="fa fa-plus" aria-hidden="true"></i> Add New</button>
     </div>
 </div>
 <div class="row">
@@ -72,7 +72,7 @@
                 <td style="font-size: 11px; font-family: 'Khmer OS System';">
                   {{$province->name}}
                 </td>
-                <td>
+                <td style="text-align: center;">
                     <a href="{{ route('provinces.edit',$province->id)}}" class="btn btn-warning btn-xs" title="Edit"><i class="fa fa-edit"></i></a>
                     <form action="{{ route('provinces.destroy', $province->id) }}" method="POST" style="display: inline;" onsubmit="if(confirm('Are you sure you want to delete?')) { return true } else {return false };">
                                 <input type="hidden" name="_method" value="DELETE">

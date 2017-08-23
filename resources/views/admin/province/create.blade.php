@@ -18,7 +18,7 @@
                 <div class="col-lg-12">
                    <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
                         {!!Form::label('name','Province Name : ',[])!!}
-                        {!!Form::text('name',null,['class'=>'form-control','required'=>'true','placeholder'=> 'Please provide province name...'])!!}
+                        {!!Form::text('name',null,['class'=>'form-control','required'=>'true'])!!}
                         @if ($errors->has('name'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('name') }}</strong>

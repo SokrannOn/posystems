@@ -34,20 +34,20 @@
         <tbody>
             @foreach($po as $pocus)
             <tr>
-                <td style="font-size: 11px; font-family: 'Khmer OS System';">
+                <td style="font-size: 11px; font-family: 'Khmer OS System';text-align: center;">
                     <?php 
                         echo "CAM-IN-" . sprintf('%06d',$pocus->id);
                     ?>
                 </td>
-                <td style="font-size: 11px; font-family: 'Khmer OS System';">
+                <td style="font-size: 11px; font-family: 'Khmer OS System';text-align: center;">
 			{{Carbon\Carbon::parse($pocus->invoiceDate)->format('d-M-Y')}}
 		</td>
-                <td style="font-size: 11px; font-family: 'Khmer OS System';">
+                <td style="font-size: 11px; font-family: 'Khmer OS System';text-align: center;">
                     <?php 
                         echo "$ " . number_format($pocus->totalAmount,2);
                     ?>
                 </td>
-                <td style="font-size: 11px; font-family: 'Khmer OS System';">
+                <td style="font-size: 11px; font-family: 'Khmer OS System';text-align: center;">
                 	{{$pocus->discount . " %"}}
                 </td>
                 <td style="font-size: 11px; font-family: 'Khmer OS System';">
@@ -59,7 +59,7 @@
                         }
                     ?>
                   </td>
-                <td style="font-size: 11px; font-family: 'Khmer OS System';">
+                <td style="font-size: 11px; font-family: 'Khmer OS System';text-align: center;">
                     <?php 
                     if($pocus->isDelivery==1){
                         echo 'Exported';
@@ -69,7 +69,7 @@
                     }
                 ?>
                 </td>
-                <td>
+                <td style="text-align: center;">
                     @if($pocus->isDelivery==0)
                     <a href="{{ route('stocks.edit',$pocus->id)}}" class="btn btn-primary btn-xs" title="Export"><i class="fa fa-truck" aria-hidden="true"></i></a>
                     @endif

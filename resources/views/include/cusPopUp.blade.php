@@ -14,7 +14,7 @@
                         <div class="col-lg-6">
                            <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
                                 {!!Form::label('name','Customer Name : ',[])!!}
-                                {!!Form::text('name',null,['class'=>'form-control','required'=>'true','placeholder'=>'customer name...'])!!}
+                                {!!Form::text('name',null,['class'=>'form-control','required'=>'true'])!!}
                                 @if ($errors->has('name'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('name') }}</strong>
@@ -25,7 +25,7 @@
                       <div class="col-lg-6">
                            <div class="form-group {{ $errors->has('contactNo') ? ' has-error' : '' }}">
                                 {!!Form::label('contactNo','Contact No : ',[])!!}
-                                {!!Form::number('contactNo',null,['class'=>'form-control','required'=>'true','placeholder'=>'phone number...'])!!}
+                                {!!Form::number('contactNo',null,['class'=>'form-control','required'=>'true'])!!}
                                 @if ($errors->has('contactNo'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('contactNo') }}</strong>
@@ -86,7 +86,7 @@
                       <div class="col-lg-6">
                            <div class="form-group {{ $errors->has('homeNo') ? ' has-error' : '' }}">
                                 {!!Form::label('homeNo','Home No : ',[])!!}
-                                {!!Form::text('homeNo',null,['class'=>'form-control','required'=>'true','placeholder'=>'home no...'])!!}
+                                {!!Form::text('homeNo',null,['class'=>'form-control','required'=>'true'])!!}
                                 @if ($errors->has('homeNo'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('homeNo') }}</strong>
@@ -97,7 +97,7 @@
                       <div class="col-lg-6">
                            <div class="form-group {{ $errors->has('streetNo') ? ' has-error' : '' }}">
                             {!!Form::label('streetNo','Street No : ',[])!!}
-                            {!!Form::text('streetNo',null,['class'=>'form-control','required'=>'true','placeholder'=>'street no...'])!!}
+                            {!!Form::text('streetNo',null,['class'=>'form-control','required'=>'true'])!!}
                             @if ($errors->has('streetNo'))
                                 <span class="help-block">
                                     <strong>{{ $errors->first('streetNo') }}</strong>
@@ -110,7 +110,7 @@
                       <div class="col-lg-6">
                            <div class="form-group {{ $errors->has('location') ? ' has-error' : '' }}">
                                 {!!Form::label('location','Location : ',[])!!}
-                                {!!Form::text('location',null,['class'=>'form-control','required'=>'true','placeholder'=>'location...'])!!}
+                                {!!Form::text('location',null,['class'=>'form-control','required'=>'true'])!!}
                                 @if ($errors->has('location'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('location') }}</strong>

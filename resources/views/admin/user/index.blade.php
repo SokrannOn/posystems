@@ -151,17 +151,17 @@
 </div>
 <div class="row">
     <div class="col-lg-12">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"> <i class="fa fa-plus" aria-hidden="true"></i> Add New</button>
+        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"> <i class="fa fa-plus" aria-hidden="true"></i> Add New</button>
     </div>
 </div>
-<div class="row">
+<div class="row table-responsive">
 	<div class="col-lg-12">
 		<div class="panel panel-default">
 			<div class="panel-heading">
            All Users
         </div>
         <div class="panel-body">
-       <table with="100%" id="example" class="table table-striped table-bordered table-hover">
+       <table with="100%" id="example" class="table table-striped table-responsive table-bordered table-hover">
         <thead>
             <tr>
                 <th>No</th>
@@ -176,12 +176,22 @@
             <tbody>
     			@foreach($users as $user)
     		            <tr>
-    						        <td>{{$no++}}</td>
-    		                <td>{{$user->nameDisplay}}</td>
-    		                <td>{{$user->email}}</td>
-    						        <td>{{$user->contactNum}}</td>
-    		                <td>{{$user->position->name}}</td>
-    						<td>
+    						        <td style="font-size: 11px; font-family: 'Khmer OS System'; text-align: center;">
+                          {{$no++}}
+                        </td>
+    		                <td style="font-size: 11px; font-family: 'Khmer OS System';">
+                          {{$user->nameDisplay}}
+                        </td>
+    		                <td style="font-size: 11px; font-family: 'Khmer OS System';">
+                          {{$user->email}}
+                        </td>
+    						        <td style="font-size: 11px; font-family: 'Khmer OS System'; text-align: center;">
+                          {{$user->contactNum}}
+                        </td>
+    		                <td style="font-size: 11px; font-family: 'Khmer OS System';">
+                          {{$user->position->name}}
+                        </td>
+    						<td style="text-align: center;">
     							<a href="{{ route('users.edit',$user->id) }}" class="btn btn-warning btn-xs" title="Edit"><i class="fa fa-edit"></i></a>
     							<form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display: inline;" onsubmit="if(confirm('Delete? Are you sure?')) { return true } else {return false };">
     		    					<input type="hidden" name="_method" value="DELETE">

@@ -25,7 +25,7 @@
                             @endif
                           </div>
                         </div>
-                          <div class="col-lg-9 hideChange">
+                          <div class="col-lg-8 hideChange">
                            <div class="form-group {{ $errors->has('customer_id') ? ' has-error' : '' }}">
                             {!!Form::label('customer_id','Customer Name :',[])!!}
                             <div class="input-group">
@@ -126,7 +126,7 @@
                           </div>  
                           <div class="col-lg-2">
                              <div class="form-group {{ $errors->has('qty') ? ' has-error' : '' }}">
-                                {!!Form::label('qty','Quality',[])!!}
+                                {!!Form::label('qty','Quantity',[])!!}
                                 {!!Form::number('qty',null,['class'=>'form-control qty','readonly'=>'readonly','min'=>'0'])!!}
                                   @if ($errors->has('qty'))
                                     <span class="help-block">
@@ -329,6 +329,7 @@ $(document).ready(function() {
       $('.qty').removeAttr('readonly','readonly');
       $('.qty').val('');
       $('.qty').focus();
+      $('.qty').css('border','1px solid lightblue');
       $('.amount').val(0);
       if(proId==''){
         $('.add').attr('disabled','true');
@@ -364,7 +365,6 @@ $(document).ready(function() {
     }else{
       $('.add').attr('disabled','true');
       $('.qty').css('border','1px solid red');
-      alert('Quality must be greater than or equal to 0.')
     }
     var price = $('.price').val();
     var total = qty * price;
@@ -546,11 +546,9 @@ $.ajax({
             if(dis<0){
                 $('.discountcus').css('border','1px solid red');
                 $('#btn_hide').attr('disabled','true');
-                alert('Discount must be greater than or equal to 0.');
             }else if(dis>100){
                 $('.discountcus').css('border','1px solid red');
                 $('#btn_hide').attr('disabled','true');
-                alert('Discount must be less than or equal to 100.');
             }else{
                 $('#btn_hide').removeAttr('disabled','true');
                  $('.discountcus').css('border','1px solid lightblue');

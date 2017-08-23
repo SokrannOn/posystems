@@ -18,7 +18,7 @@
               <div class="col-lg-6">
                    <div class="form-group {{ $errors->has('product_code') ? ' has-error' : '' }}">
                         {!!Form::label('product_code','Product Code : ',[])!!}
-                        {!!Form::text('product_code',null,['class'=>'form-control','required'=>'true','placeholder'=> 'product code...'])!!}
+                        {!!Form::text('product_code',null,['class'=>'form-control','required'=>'true'])!!}
                         @if ($errors->has('product_code'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('product_code') }}</strong>
@@ -29,7 +29,7 @@
               <div class="col-lg-6">
                    <div class="form-group {{ $errors->has('product_barcode') ? ' has-error' : '' }}">
                     {!!Form::label('product_barcode','Product Barcode : ',[])!!}
-                        {!!Form::text('product_barcode',null,['class'=>'form-control','required'=>'true','placeholder'=> 'product barcode...'])!!}
+                        {!!Form::text('product_barcode',null,['class'=>'form-control','required'=>'true'])!!}
                     @if ($errors->has('product_barcode'))
                         <span class="help-block">
                             <strong>{{ $errors->first('product_barcode') }}</strong>
@@ -42,7 +42,7 @@
               <div class="col-lg-6">
                    <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
                         {!!Form::label('name',' Product Name : ',[])!!}
-                        {!!Form::text('name',null,['class'=>'form-control','required'=>'true','placeholder'=> 'product name...'])!!}
+                        {!!Form::text('name',null,['class'=>'form-control','required'=>'true'])!!}
                         @if ($errors->has('name'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('name') }}</strong>
@@ -53,7 +53,7 @@
               <div class="col-lg-6">
                    <div class="form-group {{ $errors->has('description') ? ' has-error' : '' }}">
                     {!!Form::label('description','Description : ',[])!!}
-                        {!!Form::text('description',null,['class'=>'form-control','placeholder'=> 'description...'])!!}
+                        {!!Form::text('description',null,['class'=>'form-control'])!!}
                     @if ($errors->has('description'))
                         <span class="help-block">
                             <strong>{{ $errors->first('description') }}</strong>

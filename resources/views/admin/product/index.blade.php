@@ -16,7 +16,7 @@
                         <div class="col-lg-6">
                            <div class="form-group {{ $errors->has('product_code') ? ' has-error' : '' }}">
                                 {!!Form::label('product_code','Product Code : ',[])!!}
-                                {!!Form::text('product_code',null,['class'=>'form-control','required'=>'true','placeholder'=> 'product code...'])!!}
+                                {!!Form::text('product_code',null,['class'=>'form-control','required'=>'true'])!!}
                                 @if ($errors->has('product_code'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('product_code') }}</strong>
@@ -27,7 +27,7 @@
                         <div class="col-lg-6">
                            <div class="form-group {{ $errors->has('product_barcode') ? ' has-error' : '' }}">
                                 {!!Form::label('product_barcode','Product Barcode : ',[])!!}
-                                {!!Form::text('product_barcode',null,['class'=>'form-control','required'=>'true','placeholder'=> 'product barcode...'])!!}
+                                {!!Form::text('product_barcode',null,['class'=>'form-control','required'=>'true'])!!}
                                 @if ($errors->has('product_barcode'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('product_barcode') }}</strong>
@@ -40,7 +40,7 @@
                         <div class="col-lg-12">
                            <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
                                 {!!Form::label('name','Product Name : ',[])!!}
-                                {!!Form::text('name',null,['class'=>'form-control','required'=>'true','placeholder'=> 'product name...'])!!}
+                                {!!Form::text('name',null,['class'=>'form-control','required'=>'true'])!!}
                                 @if ($errors->has('name'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('name') }}</strong>
@@ -53,7 +53,7 @@
                         <div class="col-lg-12">
                            <div class="form-group {{ $errors->has('description') ? ' has-error' : '' }}">
                                 {!!Form::label('description','Description : ',[])!!}
-                                {!!Form::text('description',null,['class'=>'form-control','placeholder'=> 'description...'])!!}
+                                {!!Form::text('description',null,['class'=>'form-control'])!!}
                                 @if ($errors->has('description'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('description') }}</strong>
@@ -96,7 +96,7 @@
 </div>
 <div class="row">
     <div class="col-lg-12">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><i class="fa fa-plus" aria-hidden="true"></i> Add New</button>
+        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"><i class="fa fa-plus" aria-hidden="true"></i> Add New</button>
     </div>
 </div>
 <div class="row table-responsive">
@@ -123,11 +123,11 @@
         <tbody>
             @foreach($products as $product)
             <tr>
-                <td>{{$no++}}</td>
-                <td style="font-size: 11px; font-family: 'Khmer OS System';">                       
+                <td style="font-size: 11px; font-family: 'Khmer OS System'; text-align: center;">{{$no++}}</td>
+                <td style="font-size: 11px; font-family: 'Khmer OS System'; text-align: center;">                       
                     {{$product->product_code}}
                 </td>
-                <td style="font-size: 11px; font-family: 'Khmer OS System';">
+                <td style="font-size: 11px; font-family: 'Khmer OS System'; text-align: center;">
                     {{$product->product_barcode}}
                 </td>
                 <td style="font-size: 11px; font-family: 'Khmer OS System';">
@@ -136,12 +136,12 @@
                 <td style="font-size: 11px; font-family: 'Khmer OS System';">
                     {{$product->category->name}}
                 </td>
-                <td style="font-size: 12px; font-weight: bold; font-family: 'Khmer OS System';">
+                <td style="font-size: 12px; font-weight: bold; font-family: 'Khmer OS System'; text-align: center;">
                     <?php 
                         echo number_format($product->qty,0);
                     ?>
                 </td>
-                <td>
+                <td style="text-align: center;">
                     <a href="{{ route('products.edit',$product->id)}}" class="btn btn-warning btn-xs" title="Edit"><i class="fa fa-edit"></i></a>
                     <form action="{{ route('products.destroy', $product->id) }}" method="POST" style="display: inline;" onsubmit="if(confirm('Are you sure you want to delete?')) { return true } else {return false };">
                                 <input type="hidden" name="_method" value="DELETE">
