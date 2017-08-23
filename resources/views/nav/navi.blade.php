@@ -206,9 +206,24 @@
                                 </li>
                             </ul>
                         </li>
-                        <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#Stock"><i class="fa fa-industry" aria-hidden="true"></i> Stock Management <i class="fa fa-fw fa-caret-down"></i></a>
+                        <li><a href="javascript:;" data-toggle="collapse" data-target="#Stock"><i class="fa fa-industry" aria-hidden="true"></i> Stock Management <i class="fa fa-fw fa-caret-down"></i></a>
                             <ul id="Stock" class="collapse nav nav-second-level">
+
+                               {{--stock_in_menu --}}
+                                <li><a href="javascript:;" data-toggle="collapse" data-target="#cat"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Stock In <i class="fa fa-fw fa-caret-down"></i></a>
+                                    <ul id="cat" class="collapse nav nav-second-level">
+                                        <li>
+                                            <a href="{{URL::to('/admin/stock')}}">Add New</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{route('stock.index')}}">Views</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                {{--end stock-in-menu--}}
+
+
                                 <li>
                                     <a href="javascript:;" data-toggle="collapse" data-target="#cat"><i class="fa fa-tags" aria-hidden="true"></i> Category <i class="fa fa-fw fa-caret-down"></i></a>
                                     <ul id="cat" class="collapse nav nav-second-level">

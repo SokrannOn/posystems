@@ -167,3 +167,25 @@ Route::get('/getPO/{id}',function($id){
 Route::get('/getPopupEditPO/{id}','InvoicePOController@getPopupEditPO');
 Route::get('/getPopupEditCradit/{id}','InvoicePOController@getPopupEditCradit');
 Route::get('/getPopupEditInvoice/{id}','StockController@getPopupEditInvoice');
+
+
+
+
+
+//stock_route
+
+Route::get('/admin/stock', 'stock_in_controller@create');
+Route::resource('/stock','stock_in_controller');
+Route::get('/admin/stock/create/{id}/{qty}/{mfd}/{expd}','stock_in_controller@tmpInsert')->name('tmpInsert');
+Route::get('/admin/stock/create/{id}','stock_in_controller@delete')->name('delete');//Remove
+Route::get('/admin/stock/viewRecord','stock_in_controller@viewRecord')->name('viewRecord');
+Route::get('/admin/stock/discard','stock_in_controller@discard')->name('discard');
+Route::get('/admin/stock/index','stock_in_controller@index')->name('index');
+Route::get('/admin/stock/{id}', 'stock_in_controller@show');
+
+Route::get('/admin/stock/views-all', 'stock_in_controller@viewsall');
+
+//
+//Route::get('/admin/stock/create/{id}',function ($id){
+//
+//});
