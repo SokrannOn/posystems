@@ -15,7 +15,7 @@ class CreateSubimportsTable extends Migration
     {
         Schema::create('subimports', function (Blueprint $table) {
             $table->increments('id');
-            $table->date('subimport');
+            $table->date('subimportDate');
             $table->integer('purchaseorder_id');
             $table->integer('brand_id');
             $table->integer('supplier_id');
