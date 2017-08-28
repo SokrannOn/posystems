@@ -35,6 +35,8 @@ class stock_in_controller extends Controller
 
     public function store(Request $re)
     {
+        //dd($re->all());
+        //dd($re->input('discount'));
         $this->validate( $re,
             [
                 'imp_date'=>'required',
@@ -48,6 +50,12 @@ class stock_in_controller extends Controller
             $import->invoiceDate = $re->input('inv_date');
             $import->invoiceNumber = $re->input('inv_number');
             $import->totalAmount = $amount;
+            if($re->input('discount')==""){
+                $import->discount = 0;
+            }else{
+                $import->discount = $re->input('discount');
+            }
+            $import->discount = $re->input('discount');
             $dis = $re->input('discount');
             if($dis!=null){
                 $import->discount = $re->input('discount');

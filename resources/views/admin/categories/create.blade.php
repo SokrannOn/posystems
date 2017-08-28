@@ -12,7 +12,7 @@
 </div>
     <div class="row">
       <div class="col-lg-12">
-        {!!Form::open(['action'=>'CategoryController@store','method'=>'POST'])!!}
+        {!!Form::open(['action'=>'PurchaseOrderController@updatePro','method'=>'POST'])!!}
           {{csrf_field()}}
               <div class="row">
                 <div class="col-lg-12">

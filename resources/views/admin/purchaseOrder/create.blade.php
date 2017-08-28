@@ -278,6 +278,8 @@
                        {!!Form::hidden('vat',$vat,['id'=>'vat'])!!}
                         {!!Form::hidden('discount',null,['id'=>'dis'])!!}
                         {!!Form::hidden('grandTotal',null,['id'=>'gtotal'])!!}
+                        {!!Form::hidden('qty_pro_in_stock',null,['class'=>'qty_pro_in_stock'])!!}
+                        {!!Form::text('tmp_pro_qty',null,['class'=>'tmp_pro_qty'])!!}
                     
                 {!!Form::close()!!}
               </div>
@@ -347,6 +349,8 @@ $(document).ready(function() {
     url:"{{url('/getProduct')}}"+"/"+id,
     success:function(response){
       $('.proId').val(response.pro_code);
+      $('.qty_pro_in_stock').val(response.qty_product);
+      $('.tmp_pro_qty').val(response.tmp_pro_qty);
       $('.price').val(response.price); 
       },
       error:function(error){
@@ -356,23 +360,30 @@ $(document).ready(function() {
 }
 //----------------------------------
  $( ".qty" ).keyup(function() {
-   var qty = $('.qty').val();
-    if (qty>=0) {
+   var qtys = $('.qty').val();
+   var qty_pro_in_stocks = $('.qty_pro_in_stock').val();
+   var qty = null;
+   var qty_pro_in_stock = null;
+   qty = parseInt(qtys);
+   qty_pro_in_stock = parseInt(qty_pro_in_stocks);
+      var price = $('.price').val();
+      var total = qty * price;
+      var amount = total.toFixed(2);
+      $('.amount').val(amount);
+   if(qty >= 0 && qty <= qty_pro_in_stock){
       $('.add').removeAttr('disabled','true');
       $('.qty').css('border','1px solid lightblue');
-    }else if(qty==null){
+   }else if(qty >= 0 && qty > qty_pro_in_stock){
       $('.add').attr('disabled','true');
-    }else{
+      $('.qty').css('border','1px solid red');
+      alert("Stock available only: "+qty_pro_in_stock+" items!");
+   }else{
+    $('.amount').val(0);
       $('.add').attr('disabled','true');
       $('.qty').css('border','1px solid red');
     }
-    var price = $('.price').val();
-    var total = qty * price;
-    var amount = total.toFixed(2);
-    $('.amount').val(amount);
 });
  //-----------------------------------
-
 //------------------------
 
   var total = 0;
@@ -582,6 +593,12 @@ function removeOrderCus(id){
     method: 'GET',
     url:"{{url('/removeOrderCus')}}"+"/"+id,
     success:function(data){
+      $(".productId").val('');
+      $('.proId').val(null);
+      $('.qty').val(null)
+      $('.qty').attr('readonly','readonly');
+      $(".price").val(0);
+      $(".amount").val(0);
       var count = $('table tr').length;
       if(count==2){
       $('#btn_hide').attr('disabled','true');

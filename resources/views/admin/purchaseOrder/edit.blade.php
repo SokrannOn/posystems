@@ -1,11 +1,43 @@
  @extends('layouts.admin')
 @section('content')
+{{--Modal view import detail--}}
+      <!-- Modal -->
+    <div class="modal fade" id="myPopup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+
+    </div>
+
+{{--End model view import detail--}}
 {{----------------------------------}}
 <div class="row">
     <div class="col-lg-12">
-        {!!Form::model($pos,['action'=>['PurchaseOrderController@update',$pos->id],'method'=>'PATCH'])!!}
+          {{----------------------------------------------}}
+          {!!Form::model($pos,['action'=>['PurchaseOrderController@update',$pos->id],'method'=>'PATCH'])!!}
           {{csrf_field()}}
-            <div hidden class="panel panel-footer panel-primary addOrder">
+              <div class="row">
+                  <div class="col-lg-1 btnback">
+                      {!!Form::label('',' ',[])!!}
+                      <button type="submit" name="btn_back" value="Back" class="btn btn-danger btn-md"> Back </button>
+                  </div>
+                  <div class="col-lg-4">
+                                          
+                  </div>
+                  <div class="col-lg-2 hi">
+                                          
+                  </div>
+                  <div hidden class="col-lg-2 addOrder">
+                      {!!Form::label('',' ',[])!!}
+                      <a onclick="addOrder()" class="btn btn-primary btn-sm"> AddOrder </a>         
+                  </div>
+                  <div class="col-lg-4">
+                                          
+                  </div>
+                  <div class="col-lg-1">
+                      {!!Form::label('',' ',[])!!}
+                       <button type="submit" name="btn_done" value="Back" class="btn btn-success btn-md"> Done </button>
+                  </div>
+              </div>
+              {{----------------------------------------------}}
+            <div class="panel panel-footer panel-primary add" style="margin-top: 10px;">
                 <div class="row">
                   <div class="col-lg-4">
                     <div class="form-group {{ $errors->has('product_id') ? ' has-error' : '' }}">
@@ -32,7 +64,7 @@
                   <div class="col-lg-2">
                      <div class="form-group {{ $errors->has('qty') ? ' has-error' : '' }}">
                         {!!Form::label('qty','Quantity',[])!!}
-                        {!!Form::number('qty',null,['class'=>'form-control qty','readonly'=>'readonly','min'=>'0'])!!}
+                        {!!Form::number('qty',null,['class'=>'form-control qty','readonly'=>'readonly','min'=>'0','autocomplete'=>'off'])!!}
                           @if ($errors->has('qty'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('qty') }}</strong>
@@ -63,53 +95,20 @@
                     </div>
                   </div> 
                 </div>
+                {!!Form::hidden('poid',$pos->id,['class'=>'form-control '])!!}
                 <div class="row">
                   <div class="col-lg-12">
-                    <a disabled class="btn btn-primary btn-sm add" onclick="addOderCus()" ><i class="fa fa-cart-plus" aria-hidden="true"></i> Add</a>
-                     <button type="submit" name="btn_back" value="Back" class="btn btn-default pull-right btn-sm"> Back </button>
+                    <button disabled type="submit" name="btn_add" onclick="add()" value="Add" class="btn btn-primary btn-sm add"><i class="fa fa-cart-plus" aria-hidden="true"></i> Add </button>
+                     <a onclick="back()" value="Back" class="btn btn-default pull-right btn-sm"> Close </a>
                   </div>
                 </div>
               </div>
+            {!!Form::close()!!}
 {{-----------------------------------}}
-{{----------------------------------------------}}
-<div class="row">
-    <div class="col-lg-3 columnhide">
-        <div class="form-group {{ $errors->has('dueDate') ? ' has-error' : '' }}">
-            {!!Form::label('dueDate','Due Date :',[])!!}
-            {!!Form::date('dueDate',null,['class'=>'form-control'])!!}
-            @if ($errors->has('dueDate'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('dueDate') }}</strong>
-                </span>
-            @endif
-        </div>
-    </div>
-    <div class="col-lg-3">
-                            
-    </div>
-    <div class="col-lg-1 columnhide">
-        {!!Form::label('cod',' ',[])!!}
-        <a class="btn btn-primary btn-sm btnadd form-control" onclick="add()" > Add</a>
-    </div>
-    <div class="col-lg-4"> 
-                            
-    </div>
-    <div class="col-lg-1 showCheckbox">
-    <div class="form-group {{ $errors->has('cod') ? ' has-error' : '' }}">
-        {!!Form::label('cod','COD',[])!!}
-        {!!Form::checkbox('cod',1,false,['class'=>'form-control cod'])!!}
-        @if ($errors->has('cod'))
-            <span class="help-block">
-                <strong>{{ $errors->first('cod') }}</strong>
-            </span>
-        @endif
-    </div>
-</div>
-</div>
-{{----------------------------------------------}}
-<div class="row">
+<input type="hidden" name="poid" class="poid" id="poid" value="{{$pos->id}}">
+<div class="row" style="margin-top: 10px;">
     <div class="col-lg-12">
-        <div class="panel panel-default table-responsive">
+        <div class="panel panel-default">
             <table class="table table-responsive table-bordered table-striped" cellspacing="0">
                   <thead>
                       <tr>
@@ -123,49 +122,90 @@
                   </thead>
                   <?php $no=1;?>
                   <tbody>
-                      @foreach($pos->products as $pro)
-                      <tr id="{{$pro->id}}">
+                      @foreach($potmps as $potmp)
+                      <tr id="{{$potmp->id}}">
                           <td style="text-align: center;">{{$no++}}</td>
                           <td style="font-size: 11px; font-family: 'Khmer OS System';">
-                            {{$pro->name}}
+                            {{$potmp->product->name}}
                           </td>
                           <td style="font-size: 11px; font-family: 'Khmer OS System';text-align: center;">
-                            {{$pro->pivot->qty}}
+                            {{$potmp->qty}}
                           </td>
                           <td style="font-size: 11px; font-family: 'Khmer OS System';text-align: center;">
                             <?php 
-                                echo "$ " . number_format($pro->pivot->unitPrice,2);
+                                echo "$ " . number_format($potmp->unitPrice,2);
                             ?>
                           </td>
                           <td width="150px" style="font-size: 11px; font-family: 'Khmer OS System'; text-align: center;">
                             <?php 
-                                echo "$ " . number_format($pro->pivot->amount,2);
+                                echo "$ " . number_format($potmp->amount,2);
                             ?>
                           </td>
-                          <td width="150px" style="text-align: center;">
-                            <button class="btn btn-danger fa fa-remove btn-xs poid" type="button" onclick="removeOrderCus({{$pro->id}})"></button>
-                            <a href="#" class="btn btn-warning btn-xs" title="Show Details"><i class="fa fa-edit"></i></a>       
+                          <td width="150px" style="text-align: center;"> 
+                            <a href="#" onclick="getPopupEditProduct({{$potmp->product->id}})" id="{{$pos->id}}"><i class="btn-warning btn-xs fa fa-edit" data-toggle="modal" data-target="#myPopup"></i></a>
+                             {!!Form::open(['action'=>'PurchaseOrderController@deletePro','method'=>'POST','style'=>'display:inline'])!!}
+                              {{csrf_field()}}
+                                {!!Form::hidden('poid',$pos->id,['class'=>'form-control '])!!}
+                                {!!Form::hidden('proid',$potmp->product->id,['class'=>'form-control '])!!}
+                                <button title="Delete" type="submit" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i></button>
+                             {!!Form::close()!!}
                           </td>
                       </tr>
                       @endforeach
+                      <script type="text/javascript">
+
+    RemoveSpace();
+    function RemoveSpace(){
+  
+            var el = document.querySelector('.panel-default');
+            var doc = el.innerHTML;
+            //alert('Message : ' + doc);
+            el.innerHTML = el.innerHTML.replace(/&nbsp;/g,'');
+  
+      }
+
+    </script>
                   </tbody>
               </table>
             </div>
         </div>
     </div>
-    {!!Form::close()!!}
   </div>
 </div>
 @stop
 @section('script')
 <script type="text/javascript">
-    //---------------------------
-    function add(id){
+
+
+function getPopupEditProduct(proid){
+        var poid = $('#poid').val();
+        $.ajax({
+            type:'get',
+            url:"{{url('/getPopupEditProduct/')}}"+"/"+poid+"/"+proid,
+            dataType:'html',
+            success:function(data){
+                $("#myPopup").html(data);
+            },
+            error:function(e){
+
+            }
+        });
+    }
+    //-----------------------
+      function back(){
+        $('.add').fadeOut('slow');
         $('.addOrder').fadeIn('slow');
-        $('.btnadd').fadeOut('slow');
+        $('.hi').hide();
+}
+    //---------------------------
+    function addOrder(){
+        $('.addOrder').hide();
+        $('.add').fadeIn('slow');
+        $('.hi').show();
 }
 $('.productId').on('change',function(e){
       var proId= $(this).val();
+      $('.proid').val(proId);
       $('.qty').removeAttr('readonly','readonly');
       $('.qty').val('');
       $('.qty').focus();
@@ -211,6 +251,14 @@ $('.productId').on('change',function(e){
     var amount = total.toFixed(2);
     $('.amount').val(amount);
 });
- //-----------------------------------
+//  //-----------------------------------
+$(window).load(function(){
+       $('.productId').val(null);
+       $('.proId').val('');
+       $('.qty').val('');
+       $('.price').val(0);
+       $('.amount').val(0);
+    });
+//  //-------------------------
 </script>
 @stop

@@ -15,6 +15,21 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="table">
+                                <br>
+                                <table id="example" class="table table-bordered " style="border-radius: 5px;">
+                                <thead>
+                                    <tr>
+                                        <th class="font" style="text-align: center;">No</th>
+                                        <th class="font" style="text-align: center;">Import Date</th>
+                                        <th class="font" style="text-align: center;">Invoice Date</th>
+                                        <th class="font" style="text-align: center;">Invoice Numbers</th>
+                                        <th class="font" style="text-align: center;">Supplier</th>
+                                        <th class="font" style="width:10%; text-align: center;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $i=1; ?>
+                                    @foreach($import as $re)
                             @if($import->count())
                                 <table class="table table-bordered " style="border-radius: 5px;" id="import">
                                    <thead>
@@ -26,7 +41,9 @@
                                             <th class="font" style="text-align: center;">Supplier</th>
                                             <th class="font" style="width:10%; text-align: center;">Action</th>
                                         </tr>
-                                   </thead>
+                                    @endforeach
+                                </tbody>
+                                </thead>
                                     <tbody>
                                         @foreach($import as $re)
                                             <tr>
@@ -66,6 +83,12 @@
 @stop
 @section('script')
         <script type="text/javascript">
+       $(document).ready(function() {
+         $('#example').DataTable({
+
+        });
+    });
+            function testing(id) {
             function currentViews(id) {
                 $.ajax({
                     type:'get',

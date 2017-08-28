@@ -30,6 +30,7 @@ Route::group(['prefix' => 'admin','middleware'=>'auth'], function () {
    	Route::get('/','DashbordController@index');
 	Route::resource('dashbords','DashbordController');
 	Route::resource('positions','PositionController');
+	Route::resource('brands','BrandController');
 	Route::resource('zones','ZoneController');
 	Route::resource('users','UserController');
 	Route::get('/resets/{id}','UserController@reset');
@@ -54,11 +55,15 @@ Route::group(['prefix' => 'admin','middleware'=>'auth'], function () {
 	Route::resource('summaryInv','CraditPOController');
 	Route::resource('stocks','StockController');
 	Route::resource('setValues','SetValueController');
+	Route::resource('verifys','TmpEditPurchaseorderController');
 	Route::get('/inv','InvoiceController@inv');
 	Route::get('/invoice','InvoiceController@invoice');
 	Route::resource('summaryInvs','CraditPOController');
 	Route::get('/details/{id}','CraditPOController@detail');
 	Route::get('/showpaid/{id}','InvoicePOController@showInvoicePaid');
+	Route::post('/updatePro','PurchaseOrderController@updatePro');
+	Route::get('/showEdit/{poid}','PurchaseOrderController@showEdit');
+	Route::post('/deletePro','PurchaseOrderController@deletePro');
 	
 	
 	
@@ -77,7 +82,9 @@ Route::get('/removeOrderSD/{id}',function($id){
         return response()->json($id);
 });
 Route::get('/getProduct/{id}',function($id){
+		$oldQty = TpmPurchaseOrder::where('product_id','=',$id)->where('user_id','=',Auth::user()->id)->value('qty');
 		$product_code = Product::where('id','=', $id)->value('product_code');
+		$qty_product = Product::where('id','=', $id)->value('qty');
 	 	$products = Product::findOrFail($id);
 	 	foreach ($products->pricelists as $product) {
 	 		$pricelist_id = $product->id;
@@ -87,7 +94,7 @@ Route::get('/getProduct/{id}',function($id){
 		 		$price = $row->sellingprice;
 		 	}
 	 	}
-	 	return response()->json(['pro_code'=>$product_code,'price'=>$price]);
+	 	return response()->json(['pro_code'=>$product_code,'qty_product'=>$qty_product,'tmp_pro_qty'=>$oldQty,'price'=>$price]);
 	});
 
 Route::get('/getProvince/{id}',function($id){
@@ -131,6 +138,10 @@ Route::get('/showProductCus','PurchaseOrderController@showProductCus');
 Route::get('/addOrderSD/{proid}/{qty}/{price}/{amount}','PurchaseOrderSDController@addOrderSD');
 Route::get('/showProductSD','PurchaseOrderSDController@showProductSD');
 
+
+
+Route::get('/getPopupTmpPo/{id}','TmpEditPurchaseorderController@getPopupTmpPo');
+
 // Route::get('/removeOrder/{id}','PurchaseOrderController@removeOrder');
 
 
@@ -167,6 +178,7 @@ Route::get('/getPO/{id}',function($id){
 Route::get('/getPopupEditPO/{id}','InvoicePOController@getPopupEditPO');
 Route::get('/getPopupEditCradit/{id}','InvoicePOController@getPopupEditCradit');
 Route::get('/getPopupEditInvoice/{id}','StockController@getPopupEditInvoice');
+Route::get('/getPopupEditProduct/{poid}/{proid}','PurchaseOrderController@getPopupEditProduct');
 
 
 

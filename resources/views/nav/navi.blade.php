@@ -17,6 +17,17 @@
                                     </ul>
                                 </li>
                                 <li>
+                                    <a href="javascript:;" data-toggle="collapse" data-target="#Brands"><i class="fa fa-fw fa-briefcase"></i> Brands <i class="fa fa-fw fa-caret-down"></i></a>
+                                    <ul id="Brands" class="collapse nav nav-second-level">
+                                        <li>
+                                            <a href="{{ route('brands.index')}}">All Brands</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('brands.create')}}">Create New Brand</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
                                     <a href="javascript:;" data-toggle="collapse" data-target="#Users"><i class="fa fa-fw fa-user"></i> User <i class="fa fa-fw fa-caret-down"></i></a>
                                     <ul id="Users" class="collapse nav nav-second-level">
                                         <li>
@@ -173,6 +184,9 @@
                                 </li>
                                 <li>
                                     <a href="{{ route('purchaseOrders.create')}}">Create New Order</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('verifys.create')}}">Verify Purchase Order</a>
                                 </li>
                             </ul>
                         </li>

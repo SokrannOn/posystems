@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique()->nullable();
             $table->string('password');
             $table->string('contactNum')->nullable();
-            $table->string('brand')->nullable();
+            $table->integer('brand_id')->nullable();
             $table->boolean('is_log')->default(0);
             $table->unsignedInteger('position_id');
             $table->unsignedInteger('zone_id')->nullable();

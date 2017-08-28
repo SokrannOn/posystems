@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\User;
 use App\Position;
+use App\Brand;
 use Auth;
 use App\Zone;
 class UserController extends Controller
@@ -19,8 +20,9 @@ class UserController extends Controller
     {
         $users = User::where('userStatus','!=',1)->get();
         $positions = Position::pluck('name','id')->all();
+        $brands = Brand::pluck('brandName','id')->all();
         $zones = Zone::pluck('name','id')->all();
-        return view('admin.user.index',compact('users','positions','zones'));
+        return view('admin.user.index',compact('users','positions','zones','brands'));
     }
 
     /**
@@ -31,8 +33,9 @@ class UserController extends Controller
     public function create()
     {
         $positions = Position::pluck('name','id')->all();
+        $brands = Brand::pluck('brandName','id')->all();
         $zones = Zone::pluck('name','id')->all();
-        return view('admin.user.create',compact('positions','zones'));
+        return view('admin.user.create',compact('positions','zones','brands'));
     }
 
     /**
@@ -57,7 +60,7 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password),
             'contactNum' => $request->contactNum,
-            'brand' => $request->brand,
+            'brand_id' => $request->brand_id,
             'position_id' => $request->position_id,
             'zone_id' => $request->zone_id,
             'userStatus' => 0,
@@ -86,8 +89,9 @@ class UserController extends Controller
     {
         $users = User::findOrFail($id);
         $positions = Position::pluck('name','id')->all();
+        $brands = Brand::pluck('brandName','id')->all();
         $zones = Zone::pluck('name','id')->all();
-        return view('admin.user.edit',compact('users','positions','zones'));
+        return view('admin.user.edit',compact('users','positions','zones','brands'));
     }
 
     /**
@@ -108,7 +112,7 @@ class UserController extends Controller
         $user->nameDisplay = $request->nameDisplay;
         $user->sex = $request->sex;
         $user->contactNum = $request->contactNum;
-        $user->brand = $request->brand;
+        $user->brand_id = $request->brand_id;
         $user->position_id =$request->position_id;
         $user->zone_id =$request->zone_id;
         $user->save();

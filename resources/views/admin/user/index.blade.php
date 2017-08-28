@@ -118,12 +118,12 @@
                       </div>
                     </div>
                     <div class="col-lg-4">
-                      <div class="form-group {{ $errors->has('brand') ? ' has-error' : '' }}">
-                        {!!Form::label('brand','Brand',[])!!}
-                        {!!Form::text('brand',null,['class'=>'form-control'])!!}
-                        @if ($errors->has('brand'))
+                      <div class="form-group {{ $errors->has('brand_id') ? ' has-error' : '' }}">
+                        {!!Form::label('brand_id','Brand Name :',[])!!}
+                        {!!Form::select('brand_id',[null=>'---Please select brand---']+$brands,null,['class'=>'form-control'])!!}
+                        @if ($errors->has('brand_id'))
                             <span class="help-block">
-                                <strong>{{ $errors->first('brand') }}</strong>
+                                <strong>{{ $errors->first('brand_id') }}</strong>
                             </span>
                         @endif
                       </div>

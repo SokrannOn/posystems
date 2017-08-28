@@ -30,6 +30,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Position::class);
     }
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
     public function zone()
     {
         return $this->belongsTo(Zone::class);
