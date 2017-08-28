@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\History;
 use App\Http\Requests\stock_in_request;
 use App\Import;
 use App\Pricelist;
@@ -18,8 +19,7 @@ class stock_in_controller extends Controller
 
     public function index()
     {
-        $dateImport = Import::pluck('impDate','id');
-        $import = Import::all();
+        $import = Import::orderBy('id','dsc')->paginate(10);
         return view('admin.stock_in.index', compact('dateImport','import'));
     }
 
@@ -50,19 +50,28 @@ class stock_in_controller extends Controller
             $import->invoiceDate = $re->input('inv_date');
             $import->invoiceNumber = $re->input('inv_number');
             $import->totalAmount = $amount;
+<<<<<<< HEAD
             if($re->input('discount')==""){
                 $import->discount = 0;
             }else{
                 $import->discount = $re->input('discount');
             }
             $import->discount = $re->input('discount');
+=======
+            $dis = $re->input('discount');
+            if($dis!=null){
+                $import->discount = $re->input('discount');
+            }else{
+                $import->discount = 0;
+            }
+>>>>>>> 71d31afb733f771d264993486c7849808e42d77a
             $import->supplierId = $re->input('companyname');
             $import->userId =$userId;
             $import->save();
+            $impId= $import->id;
 //          end insert to main table
 
             $tmpInsert = Tmpstock::all();
-            $importId = $import->id;
             foreach ($tmpInsert as $row){
                 $proId = $row->product_id;
                 $qty = $row->qty;
@@ -74,6 +83,8 @@ class stock_in_controller extends Controller
                $expd = $row->expd;
                $import->products()->attach($proId,['qty'=>$qty,'landingPrice'=>$lPrice,'mfd'=>$mfd, 'expd'=>$expd]);
             }
+
+//Update Qty in Table product
             $tmps = Tmpstock::all();
             foreach($tmps as $tmp){
                 $id = $tmp->product_id;
@@ -84,17 +95,38 @@ class stock_in_controller extends Controller
                 $product->qty = $SumQty;
                 $product->save();
             }
-            $tmpDelete = Tmpstock::truncate();
 
+    //clone date from import_product to table histories
+                $history = Import::findOrFail($impId);
+
+                foreach ($history->products as $proID){
+                    $History = new History();
+//                    importId	productId	qty	landingPrice	mfd	expd
+                    $History->importId = $impId;
+                    $History->productId = $proID->id;
+                    $History->qty = $proID->pivot->qty;
+                    $History->landingPrice= $proID->pivot->landingPrice;
+                    $History->mfd= $proID->pivot->mfd;
+                    $History->expd = $proID->pivot->expd;
+                    $History->save();
+                }
+
+
+            $tmpDelete = Tmpstock::truncate();
             return redirect(route('stock.index'));
 
     }
 
 
-    public function show($id)
+    public function show($id)//show History of import stock
     {
         $importId = Import::findOrFail($id);
         return view('admin.stock_in.view', compact('importId'));
+    }
+    public function showCurrent($id){//show Current if import stock
+
+        $importCurrent = Import::findOrFail($id);
+        return view('admin.stock_in.currentView', compact('importCurrent'));
     }
 
 
@@ -157,7 +189,7 @@ class stock_in_controller extends Controller
         $proId = $id;
         $tmpInsert = Tmpstock::where('product_id','=',$proId);
         $tmpInsert->delete();
-        $tmpSelect = Tmpstock::all();
+        $tmpSelect = Tmpstock::orderBy('id','dsc')->paginate(2);
         return view('admin.stock_in.show',compact('tmpSelect'));
     }
     public  function discard(){

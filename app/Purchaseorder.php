@@ -24,4 +24,8 @@ class Purchaseorder extends Model
     {
         return $this->belongsToMany(Summaryinvioce::class);
     }
+
+    public function stockouts(){
+        return $this->hasOne(Stockout::class);
+    }
 }

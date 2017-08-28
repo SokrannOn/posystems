@@ -29,6 +29,13 @@ class Product extends Model
         return $this->hasMany(Pricelist::class);
     }
     public  function imports(){
-        return $this->belongsToMany(Import::class,'import_product','importId','productid')->withTimestamps()->withPivot('qty', 'landingPrice', 'mfd', 'expd');
+        return $this->belongsToMany(Import::class,'import_product','importId','productId')->withTimestamps()->withPivot('qty', 'landingPrice', 'mfd', 'expd');
+    }
+    public function histories(){
+        return $this->hasMany(History::class,'productId', 'id');
+    }
+
+    public  function subimports(){
+        return $this->belongsToMany(Product::class,'subimport_product','subimport_id','product_id')->withTimestamps()->withPivot('qty','mfd', 'expd');
     }
 }

@@ -182,8 +182,6 @@ Route::get('/getPopupEditProduct/{poid}/{proid}','PurchaseOrderController@getPop
 
 
 
-
-
 //stock_route
 
 Route::get('/admin/stock', 'stock_in_controller@create');
@@ -194,8 +192,15 @@ Route::get('/admin/stock/viewRecord','stock_in_controller@viewRecord')->name('vi
 Route::get('/admin/stock/discard','stock_in_controller@discard')->name('discard');
 Route::get('/admin/stock/index','stock_in_controller@index')->name('index');
 Route::get('/admin/stock/{id}', 'stock_in_controller@show');
-
+Route::get('/admin/stock/current/{id}', 'stock_in_controller@showCurrent')->name('showCurrent');
 Route::get('/admin/stock/views-all', 'stock_in_controller@viewsall');
+
+
+
+
+//stock_out_route
+Route::resource('/stockout', 'StockoutController');
+Route::get('/stockout/change/{id}','StockoutController@InvNChange')->name('InvNChange');//Route for event onchange in combobox invoice number
 
 //
 //Route::get('/admin/stock/create/{id}',function ($id){

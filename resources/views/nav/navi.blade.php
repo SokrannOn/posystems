@@ -224,8 +224,8 @@
                             <ul id="Stock" class="collapse nav nav-second-level">
 
                                {{--stock_in_menu --}}
-                                <li><a href="javascript:;" data-toggle="collapse" data-target="#cat"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Stock In <i class="fa fa-fw fa-caret-down"></i></a>
-                                    <ul id="cat" class="collapse nav nav-second-level">
+                                <li><a href="javascript:;" data-toggle="collapse" data-target="#stockin"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Stock In <i class="fa fa-fw fa-caret-down"></i></a>
+                                    <ul id="stockin" class="collapse nav nav-second-level">
                                         <li>
                                             <a href="{{URL::to('/admin/stock')}}">Add New</a>
                                         </li>
@@ -236,6 +236,21 @@
                                 </li>
 
                                 {{--end stock-in-menu--}}
+
+
+                                {{--stock_out_menu --}}
+                                <li><a href="javascript:;" data-toggle="collapse" data-target="#stockout"><i class="fa fa-truck" aria-hidden="true"></i> Stock Out <i class="fa fa-fw fa-caret-down"></i></a>
+                                    <ul id="stockout" class="collapse nav nav-second-level">
+                                        <li>
+                                            <a href="{{route('stockout.create')}}">Export</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{route('stockout.index')}}">Views</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                {{--end stock-out-menu--}}
 
 
                                 <li>
