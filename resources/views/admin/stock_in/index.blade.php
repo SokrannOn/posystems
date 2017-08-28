@@ -14,14 +14,11 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="table table-responsive">
-
-                                        {!! Form::open() !!}
-                                            {!! Form::select('date',$dateImport,null,['class'=>'form-control','placeholder'=>'Select Date']) !!}
-                                        {!! Form::close() !!}
+                            <div class="table">
 
                                 <br>
-                                <table class="table table-bordered " style="border-radius: 5px;">
+                                <table id="example" class="table table-bordered " style="border-radius: 5px;">
+                                <thead>
                                     <tr>
                                         <th class="font" style="text-align: center;">No</th>
                                         <th class="font" style="text-align: center;">Import Date</th>
@@ -30,6 +27,8 @@
                                         <th class="font" style="text-align: center;">Supplier</th>
                                         <th class="font" style="width:10%; text-align: center;">Action</th>
                                     </tr>
+                                </thead>
+                                <tbody>
                                     <?php $i=1; ?>
                                     @foreach($import as $re)
                                         <tr>
@@ -41,6 +40,7 @@
                                             <td style="text-align: center;"><a href="#" onclick="testing(this.id)" id="{{$re->id}}"><i class="fa fa-outdent" data-toggle="modal" data-target="#myModal"></i></a></td>
                                         </tr>
                                     @endforeach
+                                </tbody>
                                 </table>
                             </div>
                             <a href="{{url('admin/dashbords')}}" class="btn btn-danger btn-sm">Close</a>
@@ -62,6 +62,11 @@
 @stop
 @section('script')
         <script type="text/javascript">
+       $(document).ready(function() {
+         $('#example').DataTable({
+       
+        });
+    });
             function testing(id) {
                 $.ajax({
                     type:'get',

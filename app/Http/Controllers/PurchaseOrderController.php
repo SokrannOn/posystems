@@ -8,6 +8,7 @@ use App\Purchaseorder;
 use App\Customer;
 use App\Channel;
 use App\Product;
+use App\Category;
 use App\Province;
 use App\District;
 use App\Commune;
@@ -16,6 +17,7 @@ use App\SetValue;
 use App\TpmPurchaseOrder;
 use App\TpmEditPurchaseOrder;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use Auth;
 
@@ -96,7 +98,6 @@ class PurchaseOrderController extends Controller
                 $po->cod = 0;
             }
             $po->save();
-            $pos = Purchaseorder::all();
             $tmps = TpmPurchaseOrder::where('user_id','=',Auth::user()->id)->get();
                 foreach ($tmps as $tmp) {
                 $po->products()->attach($tmp->product_id,
@@ -150,9 +151,26 @@ class PurchaseOrderController extends Controller
      */
     public function edit($id)
     {
-        $pos = Purchaseorder::findOrFail($id);
+        $tmps = TpmEditPurchaseOrder::where('purchaseorder_id','=',$id)->get();
+            foreach ($tmps as $tmp) {
+                $tmp->delete();
+            }
+        $pos=Purchaseorder::findOrFail($id);
+        $product = Purchaseorder::findOrFail($id)->products()->get();
+         foreach ($product as $po) {
+            TpmEditPurchaseOrder::create([
+                'purchaseorder_id'=>$pos->id,
+                'product_id'=>$po->pivot->product_id,
+                'qty'=>$po->pivot->qty,
+                'unitPrice'=>$po->pivot->unitPrice,
+                'amount'=>$po->pivot->amount,
+                'recordStatus'=>'n',
+                'user_id'=>Auth::user()->id
+            ]);
+         }
         $products = Product::pluck('name','id')->all();
-         return view('admin.purchaseOrder.edit',compact('pos','products'));
+        $potmps = TpmEditPurchaseOrder::where('purchaseorder_id','=',$id)->get();
+         return view('admin.purchaseOrder.edit',compact('pos','potmps','products'));
     }
 
     /**
@@ -164,7 +182,45 @@ class PurchaseOrderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if(Input::get('btn_add')){
+            $tmpedit = new TpmEditPurchaseOrder;
+            $poid = Input::get('poid');
+            $proid = Input::get('product_id');
+            $qty = TpmEditPurchaseOrder::where('purchaseorder_id','=',$poid)->where('product_id','=',$proid)->where('recordStatus','!=','r')->value('qty');
+            if($qty!=null){
+                DB::statement("DELETE FROM tmpeditpurchaseorders WHERE purchaseorder_id={$poid} AND product_id={$proid}");
+                $newQtys = Input::get('qty');
+                $newQty = (int)$newQtys;
+                $qtylast = $qty + $newQty;
+                $price = Input::get('unitPrice');
+                $amount = $qtylast * $price;
+                $tmpedit->qty = $qtylast;
+                $tmpedit->amount = $amount;
+            }else{
+                $tmpedit->qty = Input::get('qty');
+                $tmpedit->amount = Input::get('amount');
+            }
+            $tmpedit->purchaseorder_id = Input::get('poid');
+            $tmpedit->product_id = Input::get('product_id');
+            $tmpedit->unitPrice = Input::get('unitPrice');
+            $tmpedit->recordStatus = 'a';
+            $tmpedit->user_id = Auth::user()->id;
+            $tmpedit->save();
+            $pos=Purchaseorder::findOrFail($poid);
+            $products = Product::pluck('name','id')->all();
+            $potmps = TpmEditPurchaseOrder::where('purchaseorder_id','=',$poid)->where('recordStatus','!=','r')->get();
+         return view('admin.purchaseOrder.edit',compact('pos','potmps','products'));
+        }
+        if(Input::get('btn_back')){
+            $tmps = TpmEditPurchaseOrder::where('purchaseorder_id','=',$id)->get();
+            foreach ($tmps as $tmp) {
+                $tmp->delete();
+            }
+            return redirect()->route('purchaseOrders.index');
+        }
+        if(Input::get('btn_done')){
+            return redirect()->route('purchaseOrders.index');
+        }   
     }
 
     /**
@@ -173,7 +229,7 @@ class PurchaseOrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($proid,$poid)
     {
         
     }
@@ -191,12 +247,55 @@ class PurchaseOrderController extends Controller
     }
     public function addOrderCus($proid, $qty, $price, $amount)
     {
-        TpmPurchaseOrder::create(['product_id'=>$proid,'qty'=>$qty,'unitPrice'=>$price,'amount'=>$amount,'user_id'=>Auth::user()->id]);
+        $oldQty = TpmPurchaseOrder::where('product_id','=',$proid)->where('user_id','=',Auth::user()->id)->value('qty');
+        $user_id =Auth::user()->id;
+        if($oldQty!=null){
+            DB::statement("DELETE FROM tmppurchaseoders WHERE product_id={$proid} AND user_id={$user_id}");
+                $newQty = (int)$qty;
+                $qtylast = $oldQty + $newQty;
+                $amount = $qtylast * $price;
+            TpmPurchaseOrder::create(['product_id'=>$proid,'qty'=>$qtylast,'unitPrice'=>$price,'amount'=>$amount,'user_id'=>Auth::user()->id]);
+        }else{
+            TpmPurchaseOrder::create(['product_id'=>$proid,'qty'=>$qty,'unitPrice'=>$price,'amount'=>$amount,'user_id'=>Auth::user()->id]);
+        }
         $tmpPurchaseOrders = TpmPurchaseOrder::where('user_id','=',Auth::user()->id)->get();
         return response()->json($tmpPurchaseOrders);
     }
     public function showProductCus(){
         $tmpdata = TpmPurchaseOrder::where('user_id','=',Auth::user()->id)->get();
         return view('admin.purchaseOrder.showProduct',compact('tmpdata'));
+    }
+    public function getPopupEditProduct($poid,$proid)
+    {
+        $qty = TpmEditPurchaseOrder::where('purchaseorder_id','=',$poid)
+                                      ->where('product_id','=',$proid)
+                                      ->value('qty');
+        return view('admin.purchaseOrder.editPopup',compact('qty','proid','poid'));
+    }
+    public function updatePro(Request $request)
+    {
+        $poid = Input::get('poid');
+        $proid = Input::get('proid');
+        $qty = Input::get('qty');
+        $unitPrice = TpmEditPurchaseOrder::where('purchaseorder_id','=',$poid)
+                                      ->where('product_id','=',$proid)
+                                      ->value('unitPrice');
+        $amount = $qty * $unitPrice;
+        DB::statement("UPDATE tmpeditpurchaseorders SET qty={$qty}, amount={$amount}, recordStatus='e' WHERE purchaseorder_id={$poid} AND product_id={$proid}");
+        return redirect(url('admin/showEdit',$poid));
+    }
+    public function showEdit($poid)
+    {
+        $pos=Purchaseorder::findOrFail($poid);
+        $products = Product::pluck('name','id')->all();
+        $potmps = TpmEditPurchaseOrder::where('purchaseorder_id','=',$poid)->where('recordStatus','!=','r')->get();
+         return view('admin.purchaseOrder.edit',compact('pos','potmps','products'));
+    }
+    public function deletePro(Request $request)
+    {
+        $poid = Input::get('poid');
+        $proid = Input::get('proid');
+        DB::statement("UPDATE tmpeditpurchaseorders SET recordStatus='r' WHERE purchaseorder_id={$poid} AND product_id={$proid}");
+        return redirect(url('admin/showEdit',$poid));
     }
 }
