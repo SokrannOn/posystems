@@ -50,21 +50,18 @@ class stock_in_controller extends Controller
             $import->invoiceDate = $re->input('inv_date');
             $import->invoiceNumber = $re->input('inv_number');
             $import->totalAmount = $amount;
-<<<<<<< HEAD
             if($re->input('discount')==""){
                 $import->discount = 0;
             }else{
                 $import->discount = $re->input('discount');
             }
             $import->discount = $re->input('discount');
-=======
             $dis = $re->input('discount');
             if($dis!=null){
                 $import->discount = $re->input('discount');
             }else{
                 $import->discount = 0;
             }
->>>>>>> 71d31afb733f771d264993486c7849808e42d77a
             $import->supplierId = $re->input('companyname');
             $import->userId =$userId;
             $import->save();

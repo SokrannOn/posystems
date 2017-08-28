@@ -15,8 +15,6 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="table">
-<<<<<<< HEAD
-
                                 <br>
                                 <table id="example" class="table table-bordered " style="border-radius: 5px;">
                                 <thead>
@@ -32,11 +30,9 @@
                                 <tbody>
                                     <?php $i=1; ?>
                                     @foreach($import as $re)
-=======
                             @if($import->count())
                                 <table class="table table-bordered " style="border-radius: 5px;" id="import">
                                    <thead>
->>>>>>> 71d31afb733f771d264993486c7849808e42d77a
                                         <tr>
                                             <th class="font" style="text-align: center;">ID</th>
                                             <th class="font" style="text-align: center;">Import Date</th>
@@ -45,11 +41,9 @@
                                             <th class="font" style="text-align: center;">Supplier</th>
                                             <th class="font" style="width:10%; text-align: center;">Action</th>
                                         </tr>
-<<<<<<< HEAD
                                     @endforeach
                                 </tbody>
-=======
-                                   </thead>
+                                </thead>
                                     <tbody>
                                         @foreach($import as $re)
                                             <tr>
@@ -65,7 +59,6 @@
                                             </tr>
                                         @endforeach
                                     </tbody>
->>>>>>> 71d31afb733f771d264993486c7849808e42d77a
                                 </table>
                             @else
                                 <h4>No Record</h4>
@@ -90,14 +83,12 @@
 @stop
 @section('script')
         <script type="text/javascript">
-<<<<<<< HEAD
        $(document).ready(function() {
          $('#example').DataTable({
-       
+
         });
     });
             function testing(id) {
-=======
             function currentViews(id) {
                 $.ajax({
                     type:'get',
@@ -113,7 +104,6 @@
             }
 
             function historyviews(id) {
->>>>>>> 71d31afb733f771d264993486c7849808e42d77a
                 $.ajax({
                     type:'get',
                     url: "{{url('/admin/stock')}}"+"/"+id,
